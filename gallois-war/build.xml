@@ -10,6 +10,14 @@
 <project name="gallois-war" default="default" basedir=".">
     <description>Builds, tests, and runs the project gallois-war.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <!-- ResourceBundle.getBundle("text") loads these bundles from the classpath root. -->
+    <target name="-pre-dist">
+        <copy todir="${build.classes.dir}" flatten="true">
+            <fileset dir="${project.gallois-ejb}/src/java/resources" includes="text*.properties"/>
+        </copy>
+    </target>
+
     <!--
 
     There exist several targets which are by default empty and which can be 

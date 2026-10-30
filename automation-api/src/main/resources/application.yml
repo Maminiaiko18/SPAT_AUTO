@@ -1,0 +1,22 @@
+server:
+  port: ${PORT:8088}
+
+spring:
+  application:
+    name: facture-automation-api
+  datasource:
+    url: ${SPAT_RO_JDBC_URL:}
+    username: ${SPAT_RO_DB_USER:}
+    password: ${SPAT_RO_DB_PASSWORD:}
+    driver-class-name: oracle.jdbc.OracleDriver
+  sql:
+    init:
+      mode: never
+
+spat:
+  readonly:
+    enabled: ${SPAT_RO_DB_ENABLED:false}
+
+logging:
+  level:
+    org.springframework.jdbc.core: INFO

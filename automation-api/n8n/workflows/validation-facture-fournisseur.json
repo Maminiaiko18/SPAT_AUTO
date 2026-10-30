@@ -1,0 +1,92 @@
+{
+  "name": "SPAT - Validation facture fournisseur (lecture seule)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "spat/factures-fournisseurs/validation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "aafaf852-09bb-46fe-9457-33214bb238c1",
+      "name": "Recevoir la proposition",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "8fef8c14-e054-4d61-a1a9-7d13913a7efa"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.SPAT_AUTOMATION_API_URL || 'http://host.docker.internal:8088'}}/api/v1/factures-fournisseurs/validation",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json.body}}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "5ceaa02c-5f99-4b27-85a3-3eb59dce1a97",
+      "name": "Valider en lecture seule",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{$json}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "ed434ffd-996f-41ba-9022-789ea97333bb",
+      "name": "Retourner les écarts",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Recevoir la proposition": {
+      "main": [
+        [
+          {
+            "node": "Valider en lecture seule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valider en lecture seule": {
+      "main": [
+        [
+          {
+            "node": "Retourner les écarts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "75594d14-836d-46bb-bca4-f113f83d2340",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

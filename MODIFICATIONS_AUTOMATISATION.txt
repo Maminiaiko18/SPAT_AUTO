@@ -1,0 +1,106 @@
+JOURNAL DES MODIFICATIONS — AUTOMATISATION DE FACTURATION
+Date : 2026-10-15
+Branche : automatisation-facturation
+
+Contexte
+- Workspace SPAT existant en Java EE/WildFly ; les modifications locales Copilot étaient déjà présentes avant cette intervention.
+- Périmètre retenu depuis la demande jointe : service indépendant, contrôle Oracle en lecture seule, aucune modification des JSP/EJB existants et aucune écriture dans les tables SPAT.
+- Le fichier factures.json existe déjà, non suivi par Git, et contient des données métier. Il n'a pas été utilisé ni copié dans le service.
+
+Modifications apportées
+- Création de automation-api, application Spring Boot séparée, ciblant Java 21.
+- Mise à jour de .gitignore pour exclure le répertoire de build automation-api/target.
+- Démarrage de l'API possible sans accès DB ; validation désactivée en 503 tant que SPAT_RO n'est pas configuré.
+- Ajout de GET /api/v1/health.
+- Ajout de POST /api/v1/factures-fournisseurs/validation : vérification des lignes contre AS_BONDELIVRAISON_FILLEQTE_RES, quantité restante et prix unitaire exacts, avec signalement des doublons et des lignes absentes.
+- Accès Oracle configuré par variables d'environnement SPAT_RO_JDBC_URL, SPAT_RO_DB_USER et SPAT_RO_DB_PASSWORD ; aucun identifiant n'est enregistré dans le dépôt.
+- Ajout d'un workflow n8n exporté dans automation-api/n8n/workflows/validation-facture-fournisseur.json ; il reste inactif par défaut et nécessite l'import et la configuration dans l'instance n8n.
+- Documentation de démarrage, contrat d'API, prérequis et limites dans automation-api/README.md.
+
+Sécurité et limites
+- L'API ne contient aucun INSERT, UPDATE ou DELETE vers SPAT.
+- Utiliser exclusivement un compte Oracle techniquement en lecture seule. La transaction Spring readOnly ne remplace pas les droits Oracle.
+- Les tolérances de quantité/prix ne sont pas connues et n'ont pas été inventées ; le PU est comparé exactement.
+- L'instance n8n et le schéma Oracle n'étaient pas accessibles depuis cette session ; le workflow n'a pas pu être importé/activé et la vue doit être vérifiée en préproduction.
+
+Vérification
+- À compléter après compilation Maven et essais sur une base Oracle de préproduction avec compte SPAT_RO.
+- Compilation Maven du package réussie avec JDK 21.
+- Tests unitaires locaux ajoutés pour ligne valide, dépassement quantité/prix, absence et doublon.
+- Tests exécutés : 3 réussis, 0 échec.
+- Démarrage local vérifié : GET /api/v1/health => UP ; POST de validation sans Oracle => 503 contrôlé.
+- JSON n8n analysé avec succès : 3 nœuds reliés (Webhook, appel API, réponse).
+- Aucun test de production ou écriture sur SPAT n'a été exécuté.
+
+Correction Oracle — 2026-10-16
+- Après retour SQL Plus effectué par l'utilisateur avec SPAT_RO, la vue est confirmée sous le propriétaire SPAT_CAPITAINERIE.
+- Colonnes confirmées : ID, NUMBL, IDBONDECOMMANDEMERE, QUANTITERESTE et PU.
+- Cause du HTTP 500 : la requête de lecture référençait la vue sans son schéma propriétaire. La requête est maintenant qualifiée en SPAT_CAPITAINERIE.AS_BONDELIVRAISON_FILLEQTE_RES.
+- README mis à jour avec le propriétaire et les colonnes vérifiées.
+- La connexion Oracle runtime depuis le JAR et le POST n8n restent à valider après reconstruction avec le compte SPAT_RO ; aucun changement n'a été fait dans Oracle.
+- Package Maven reconstruit avec succès (`mvn -DskipTests package`) après arrêt des deux instances locales qui verrouillaient le JAR ; le JAR corrigé a ensuite été redémarré avec les variables Oracle.
+- Test de bout en bout ensuite confirmé par l'utilisateur : le workflow n8n déclenche l'API, lit Oracle et retourne la réponse métier. Avec les références de démonstration BL-DEMO/BC-DEMO/BLF-DEMO, résultat `A_CORRIGER` et écart « Ligne introuvable pour ce bon de livraison et ce bon de commande. » ; résultat attendu pour des identifiants fictifs, et preuve que le chemin complet répond.
+- À faire pour une validation métier réelle : relancer le même flux avec des identifiants BL/BC/ligne existants et autorisés en préproduction.
+- Export n8n réaligné sur le workflow qui fonctionne : `responseMode` du Webhook passe à `responseNode`, afin qu'un futur import utilise bien le nœud `Respond to Webhook` au lieu de réintroduire `usingRespondToWebhook`.
+- Ajout d'un gestionnaire d'erreurs API : les échecs SQL Oracle renvoient un JSON 503 avec le code `ORACLE_QUERY_FAILED`, les requêtes invalides un JSON 400, et les détails techniques restent dans les logs serveur plutôt que dans la réponse HTTP.
+- Compilation des 8 sources Java et package Maven réussis après ces changements (`mvn -DskipTests compile` puis `mvn -DskipTests package` ; tests non exécutés).
+- Pour reconstruire le JAR, les deux instances locales de l'API ont été arrêtées ; relancer `java -jar .\target\facture-automation-api-0.1.0-SNAPSHOT.jar` depuis le terminal où les variables Oracle sont définies.
+
+Activation externe restante
+- Les variables Oracle et les variables d'accès n8n ne sont pas présentes dans l'environnement de cette session ; leurs valeurs n'ont pas été recherchées dans les fichiers ni affichées.
+- Le service et le workflow n'ont donc pas été connectés à une base Oracle ni importés dans une instance n8n. Le compte RO, les noms de colonnes de la vue en préproduction et l'import/activation n8n restent à confirmer avant utilisation réelle.
+
+Ajout Postman — 2026-10-16
+- `postman init` exécuté dans automation-api ; configuration, répertoires et consignes API ajoutés localement.
+- Le CLI n'était pas connecté à un compte Postman ; le workspace cloud créé par init est temporaire et aucun artefact n'a été publié/poussé.
+- Contrat OpenAPI ajouté et vérifié par lint syntaxique local.
+- Collection locale générée depuis OpenAPI avec requêtes Health et validation ; assertions et exemples ajoutés.
+- Environnement Local ajouté avec baseUrl=http://localhost:8088 (aucun secret).
+- Collection lintée et environnement linté sans erreurs ni avertissements.
+- Collection exécutée contre le JAR : 2 requêtes, 4 assertions, 0 échec ; health 200 et validation 503 prévu sans Oracle.
+- La commande a affiché l'avertissement « No authorization data found » lié à la session Postman invitée ; l'exécution locale est néanmoins terminée avec le code 0.
+- Le lint complet de gouvernance nécessite `postman login`; seul le lint syntaxique local a été possible sans compte.
+
+Déclenchement depuis SPAT — 2026-10-16
+- À la demande de l'utilisateur, le périmètre est élargi : l'intégration modifie maintenant le flux JSP existant après enregistrement de la facture fournisseur. Le choix explicite est de conserver la facture même si le contrôle retourne `A_CORRIGER`, puis d'afficher le résultat sur sa fiche.
+- `gallois-war/src/java/mg/spat/automation/N8nInvoiceValidationClient.java` appelle le webhook de production configuré par `SPAT_N8N_VALIDATION_WEBHOOK_URL` ou par la propriété Java `spat.n8n.validation.webhook`. Il envoie un POST JSON, gère les réponses objet/tableau et borne chaque requête à 5 secondes.
+- `gallois-war/src/java/mg/spat/automation/N8nInvoiceValidationService.java` retrouve pour chaque détail son NUMBL et l'identifiant du bon de commande parent via `AS_BONDELIVRAISON_FILLEQTE_RES`, regroupe les lignes par BL et BC, puis appelle n8n. Une erreur de configuration, lecture ou réseau devient un résultat affichable et ne remonte pas pour annuler l'insertion déjà effectuée.
+- `gallois-war/web/pages/apresMultipleAjax.jsp` et `gallois-war/web/pages/apresMultiple.jsp` déclenchent ce contrôle après l'insertion uniquement pour une `facture.FactureFournisseur` avec des détails `FactureFournisseurDetails`. La page `facture-fournisseur-saisie-vaovao2.jsp` utilise précisément le handler AJAX `apresMultipleAjax.jsp`.
+- `gallois-war/web/pages/facture/facture-fournisseur-fiche-vaovao.jsp` affiche et consomme le résultat flash de la session, notamment les écarts `A_CORRIGER`, après la redirection.
+- Configuration attendue côté processus WildFly/SPAT : `SPAT_N8N_VALIDATION_WEBHOOK_URL=http://localhost:5678/webhook/spat/factures-fournisseurs/validation` si SPAT et n8n tournent sur le même hôte. En conteneur, remplacer `localhost` par le nom réseau accessible depuis WildFly. Le workflow n8n doit être activé pour cette URL de production.
+- Compilation du client HTTP réussie en source/target Java 8 avec les JAR Jackson déjà présents dans le cache Maven. Ant de NetBeans a ensuite été lancé pour compiler le WAR, mais le build est bloqué par la configuration locale : `libs.CopyLibs.classpath` n'est pas défini, et le GlassFish 4.1.1 référencé par les propriétés privées du projet n'existe pas à son chemin configuré. Aucun déploiement n'a été tenté. La prochaine vérification est un build WAR dans un environnement NetBeans/GlassFish correctement configuré, puis une soumission de test avec n8n actif.
+
+Reprise de la compilation WAR — 2026-10-19
+- Le build Ant du module `gallois-war` a été relancé avec Ant fourni par NetBeans 17. `libs.CopyLibs.classpath` a été passé à la commande avec le JAR CopyLibs livré avec NetBeans, sans modifier les propriétés privées NetBeans du projet.
+- Compilation des sources Java 8 de `gallois-ejb` et de `gallois-war` réussie ; création de `gallois-war/dist/gallois-war.war` terminée (`BUILD SUCCESSFUL`). Les avertissements indiquent seulement que la version Java source/cible 8 est ancienne.
+- Aucun déploiement WildFly n'a été lancé. L'URL n8n, les variables d'environnement Oracle et le compte SPAT_RO doivent encore être disponibles pour une validation intégrée réelle.
+
+Déploiement SPAT et préparation de l'intégration n8n — 2026-10-19
+- Le premier WAR compilé ne contenait pas les bibliothèques runtime du SPAT existant (`gallois-ejb.jar` notamment). Le premier déploiement scanner a donc échoué ; le script a restauré la version précédente, et `GET /spat/` est revenu à HTTP 200.
+- Le build a été corrigé : `gallois-war/build.xml` place `text.properties` et `text_zh.properties` à la racine du classpath où `ResourceBundle.getBundle("text")` les attend. `scripts/build-spat-war.ps1` reconstruit le WAR, inclut les 86 JAR runtime présents dans le déploiement WildFly ainsi que le JAR EJB reconstruit, et conserve l'archive Ant brute pour diagnostic.
+- Déploiement final de `gallois-war/dist/gallois-war.war` sous `spat.war` réussi. WildFly a enregistré le contexte `/spat` et `GET http://127.0.0.1:8080/spat/` répond HTTP 200.
+- Sauvegarde de l'ancienne application : `C:\wildfy-officiel\wildfly-10.0.0.Final\standalone\codex-deploy-backups\spat.war-20261019-101747`. Script de déploiement reproductible et avec rollback : `scripts/deploy-spat-wildfly.ps1`.
+- L'API reste arrêtée sur `localhost:8088` et les variables `SPAT_RO_*` ne sont pas définies dans l'environnement utilisé ici. n8n a fini par répondre sur `localhost:5678` (`/healthz` HTTP 200), mais l'accès `GET /rest/workflows` répond 401 sans authentification/API key. Le workflow reste donc exporté et inactif dans `automation-api/n8n/workflows/validation-facture-fournisseur.json`. Aucune requête de validation Oracle réelle n'a été envoyée.
+- Pour reprendre depuis VS Code, exécuter `scripts/build-spat-war.ps1`, puis `scripts/deploy-spat-wildfly.ps1`. Avant d'activer le flux complet, démarrer/configurer l'API avec `SPAT_RO_JDBC_URL`, `SPAT_RO_DB_USER`, `SPAT_RO_DB_PASSWORD` et `SPAT_RO_DB_ENABLED=true`, démarrer/configurer n8n, puis renseigner `SPAT_N8N_VALIDATION_WEBHOOK_URL` pour le processus WildFly. Garder les mots de passe dans les variables locales, jamais dans le dépôt ou le chat.
+
+Reprise configuration locale — 2026-10-19
+- Constat : n8n est joignable sur `127.0.0.1:5678` (health HTTP 200), mais son endpoint de gestion des workflows exige une authentification (HTTP 401). L'API Spring Boot n'écoute pas sur `127.0.0.1:8088`. Aucun secret n'a été affiché ou lu.
+- Ajout de `scripts/start-automation-api.ps1` : demande l'URL JDBC, le compte `SPAT_RO` et son mot de passe en saisie masquée, puis lance le JAR avec Java 21. Les variables sont limitées au processus local et le secret est retiré de l'environnement du terminal à la fermeture.
+- Ajout de `scripts/import-n8n-workflow.ps1` : demande une clé API n8n en saisie masquée, vérifie l'API SPAT, importe le workflow s'il n'existe pas déjà et tente de l'activer. Il s'arrête sans écraser un workflow homonyme.
+- Ajout des tâches VS Code correspondantes dans `.vscode/tasks.json` et instructions dans `automation-api/README.md`. Le démarrage de l'API nécessite toujours l'URL JDBC Oracle; le workflow n8n doit être importé avec une clé API générée depuis le compte n8n.
+- L'URL webhook de production `SPAT_N8N_VALIDATION_WEBHOOK_URL` est déjà présente dans l'environnement utilisateur Windows (valeur non affichée). Le processus WildFly doit être redémarré après la configuration du flux pour hériter de cette variable.
+- Étape nécessitant la saisie locale de l'utilisateur : lancer les deux tâches VS Code, saisir les secrets dans leur terminal (jamais dans le chat), puis vérifier le flux avec des références de préproduction autorisées.
+
+Reprise des objectifs finaux — 2026-10-26
+- Bilan, état opérationnel, calendrier du 26 octobre au 9 novembre et décisions métier à verrouiller consignés dans `PLAN_AUTOMATISATION_2_SEMAINES.md`.
+- La reprise confirme que les services locaux ne répondent actuellement pas sur 8080 (WildFly), 8088 (API validation) ou 5678 (n8n). Les endpoints utilisateurs et BEP n’ont pas été trouvés dans la branche courante.
+- L’API Tiers trouvée crée un tiers (`POST /api/tiers`) et utilise `SPATERP_API_TOKEN`/`SPATERP_API_USER`; aucune spécification Postman dédiée n’a été repérée. La gestion CRUD attendue reste à définir.
+- Le code de facture fournisseur actuel valide en lecture seule après saisie; l’URL JDBC et l’authentification n8n manquent pour le remettre en service.
+- L’écran BEP/BED existant est `ded/bordereauxFF-modif.jsp` : il modifie `BordereauFF` à travers `FSBBED`; le code distingue `TYPB1` (`typeBED`) et `TYPB2` (`typeEtatDepense`). Cela ne suffit pas à confirmer que le besoin « BEP » vise le BED.
+- Compilation actuelle de l’API autonome effectuée le 2026-10-26 avec `mvn -DskipTests package` : `BUILD SUCCESS`. Les tests ont été explicitement ignorés par cette commande; aucune connexion Oracle n’a été tentée.
+- Vérification complémentaire du 2026-10-26 : n8n `/healthz` répond HTTP 200; `/rest/workflows` et `/api/v1/workflows` répondent HTTP 401 sans authentification. L’API Spring Boot (`8088`) et SPAT/WildFly (`8080`) sont injoignables. Une tentative de démarrage n8n en doublon a été arrêtée après détection; le processus d’origine et son listener `5678` sont restés actifs.
+- `mvn test` exécuté le 2026-10-26 : 3 tests, 0 échec, 0 erreur, 0 ignoré. Couverture limitée au service `InvoiceValidationService`; aucune validation Oracle ni recette complète n8n/SPAT.
+- Le script d’import n8n vérifie maintenant une requête de validation en lecture seule avec les références de démonstration `BL-DEMO/BC-DEMO/BLF-DEMO` après le health check. Il s’arrête avant l’import si Oracle SPAT_RO ne répond pas, car le health check seul ne garantit pas l’accès à la base.
+- Correction d’état après inspection des processus : l’instance n8n d’origine reste active sur le port 5678 (`/healthz` HTTP 200). Les routes de gestion n8n répondent 401 sans clé; l’API 8088 et WildFly 8080 restent injoignables. Le processus n8n secondaire lancé pendant le diagnostic a été arrêté.
+- API Tiers : contrat OpenAPI `automation-api/postman/specs/spaterp-tiers-api.yaml`, collection `SPAT Tiers API` et environnement local `SPAT Local.environment.yaml` ajoutés. L’environnement est exclu de Git pour protéger le jeton Bearer. La collection n’a pas été exécutée car `POST /api/tiers` crée un tiers dans la base.
+- Le CLI Postman présent dans le PATH ne rend pas la commande `postman skills status`; le binaire observé est un alias WindowsApps et `postman-cli` n’est pas résolu. Les nouveaux YAML ont été parsés avec le runtime Node local, mais la validation Postman officielle reste à faire.

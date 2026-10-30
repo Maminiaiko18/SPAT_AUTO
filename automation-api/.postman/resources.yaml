@@ -1,0 +1,10 @@
+localResources:
+  collections:
+    - ../postman/collections/SPAT Facture Automation API
+    - ../postman/collections/SPAT Tiers API
+  specs:
+    - ../postman/specs/facture-automation-api.yaml
+    - ../postman/specs/spaterp-tiers-api.yaml
+workspace:
+  id: 4d5790c4-5bde-4738-81ca-48bfb99470df
+  name: My Workspace

@@ -14,6 +14,7 @@ public class TiersCreateRequest {
     private String compteAuxClient;
     private String cin;
     private String cp;
+    private Boolean verificationJustificatifs;
 
     public String getNom() {
         return nom;
@@ -109,5 +110,13 @@ public class TiersCreateRequest {
 
     public void setCp(String cp) {
         this.cp = cp;
+    }
+
+    public Boolean getVerificationJustificatifs() {
+        return verificationJustificatifs;
+    }
+
+    public void setVerificationJustificatifs(Boolean verificationJustificatifs) {
+        this.verificationJustificatifs = verificationJustificatifs;
     }
 }

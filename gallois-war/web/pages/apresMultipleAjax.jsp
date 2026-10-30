@@ -4,6 +4,7 @@
     Author     : Jerry
 --%>
 <%@page import="facture.PaiementFacture"%>
+<%@page import="mg.spat.automation.N8nInvoiceValidationService"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -74,6 +75,7 @@
             if (temp != null) {
                 val = temp.toString();
                 idmere = o.getTuppleID();
+                N8nInvoiceValidationService.validateAfterSave(classe, classefille, cfille, idmere, session);
             }
             response.getWriter().print("success_"+idmere);
         }

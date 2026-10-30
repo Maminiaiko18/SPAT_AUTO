@@ -134,7 +134,7 @@ public class FormOffreFormation extends ClassEtat{
         int diffJourdate=Utilitaire.diffJourDaty(date_fin, Utilitaire.dateDuJourSql() );
         int diffJourdateForm=Utilitaire.diffJourDaty(getDate_debut(),date_fin );
         if(anneeEnCours-anneeDate>200) throw new Exception("Date de fin trop ancienne");
-        if(diffJourdateForm>=2)throw new Exception("Date de fin inferieur ‡ la date de dÈbut de formation");
+        if(diffJourdateForm>=2)throw new Exception("Date de fin inferieur √† la date de d√©but de formation");
         this.date_fin = date_fin;
     }
 
@@ -162,7 +162,7 @@ public class FormOffreFormation extends ClassEtat{
             this.cout_offre = cout_offre;
             return;
         }
-        if(cout_offre<0) throw new Exception("Cout invalide car valeur nÈgative");
+        if(cout_offre<0) throw new Exception("Cout invalide car valeur n√©gative");
         this.cout_offre = cout_offre;
     }
 

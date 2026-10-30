@@ -1,0 +1,8 @@
+workflows:
+  syncSpecToCollection:
+    - spec: ../postman/specs/facture-automation-api.yaml
+      collection: ../postman/collections/SPAT Facture Automation API
+    - spec: ../postman/specs/spaterp-tiers-api.yaml
+      collection: ../postman/collections/SPAT Tiers API
+    - spec: ../postman/specs/spaterp-tiers-api.yaml
+      collection: ../postman/collections/SPAT Tiers API

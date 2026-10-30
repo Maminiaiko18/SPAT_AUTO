@@ -94,7 +94,7 @@ public class FormReccuperation extends ClassEtat {
             this.date_reccup = date_reccup;
             return;
         }
-        if(date_reccup==null) throw new Exception("Date de récupération manquant");
+        if(date_reccup==null) throw new Exception("Date de rÃ©cupÃ©ration manquant");
         this.date_reccup = date_reccup;
     }
 
@@ -112,8 +112,8 @@ public class FormReccuperation extends ClassEtat {
             return;
         }
         if(heure_debut_am!=null && heure_debut_am!=""){
-            if(!Utilitaire.validerHeureMinute(heure_debut_am)) throw new Exception("Format Heure début (Matin) = HH:MM");
-            if(!Utilitaire.isHeureMatin(heure_debut_am)) throw new Exception("Heure début (Matin) invalide car > 12:00");
+            if(!Utilitaire.validerHeureMinute(heure_debut_am)) throw new Exception("Format Heure dÃ©but (Matin) = HH:MM");
+            if(!Utilitaire.isHeureMatin(heure_debut_am)) throw new Exception("Heure dÃ©but (Matin) invalide car > 12:00");
         }
         this.heure_debut_am = heure_debut_am;
     }
@@ -146,8 +146,8 @@ public class FormReccuperation extends ClassEtat {
             return;
         }
         if(heure_debut_pm!=null && heure_debut_pm!=""){
-            if(!Utilitaire.validerHeureMinute(heure_debut_pm)) throw new Exception("Format Heure début (Après-midi) = HH:MM");
-            if(Utilitaire.isHeureMatin(heure_debut_pm)) throw new Exception("Heure début (Après-midi) invalide car <= 12:00");
+            if(!Utilitaire.validerHeureMinute(heure_debut_pm)) throw new Exception("Format Heure dÃ©but (AprÃ¨s-midi) = HH:MM");
+            if(Utilitaire.isHeureMatin(heure_debut_pm)) throw new Exception("Heure dÃ©but (AprÃ¨s-midi) invalide car <= 12:00");
         }
         this.heure_debut_pm = heure_debut_pm;
     }
@@ -162,8 +162,8 @@ public class FormReccuperation extends ClassEtat {
             return;
         }
         if(heure_fin_pm!=null && heure_fin_pm!=""){
-            if(!Utilitaire.validerHeureMinute(heure_debut_pm)) throw new Exception("Format Heure fin (Après-midi) = HH:MM");
-            if(Utilitaire.isHeureMatin(heure_debut_pm)) throw new Exception("Heure fin (Après-midi) invalide car <= 12:00");
+            if(!Utilitaire.validerHeureMinute(heure_debut_pm)) throw new Exception("Format Heure fin (AprÃ¨s-midi) = HH:MM");
+            if(Utilitaire.isHeureMatin(heure_debut_pm)) throw new Exception("Heure fin (AprÃ¨s-midi) invalide car <= 12:00");
         }
         this.heure_fin_pm = heure_fin_pm;
     }

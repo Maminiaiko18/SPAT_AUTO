@@ -118,7 +118,7 @@ public class FormFormateur extends ClassMAPTable {
             this.niveau = niveau;
             return;
         }
-        if(niveau<0 || niveau>10) throw new Exception("Niveau invalide car doit être entre 0 et 10");
+        if(niveau<0 || niveau>10) throw new Exception("Niveau invalide car doit Ãªtre entre 0 et 10");
         this.niveau = niveau;
     }
 

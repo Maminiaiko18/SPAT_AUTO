@@ -95,7 +95,7 @@ public class EnvoiMailService {
             //partieMessage.setContent(message, "text/html"); //Pour envoyer HTML
             multipart.addBodyPart(partieMessage);
             
-            //Pièces jointes
+            //PiÃ¨ces jointes
             if(pieces != null && pieces.length > 0){
                 for(int i = 0; i < pieces.length; i++){
                     partieMessage=new MimeBodyPart();

@@ -9,6 +9,9 @@ gallois-war/nbproject
 build/
 dist/
 build-file/lib/
+/automation-api/target/
+automation-api/local/
+automation-api/postman/environments/SPAT Local.environment.yaml
 *.class
 nbproject/private/
 .idea/

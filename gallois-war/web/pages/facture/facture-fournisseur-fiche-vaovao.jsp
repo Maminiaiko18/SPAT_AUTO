@@ -10,6 +10,8 @@
 
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="utilitaire.ConstanteEtat"%>
 <%@page import="facture.FactureClientDetails"%>
@@ -257,6 +259,25 @@
                 </h1>
                 <div class="box-body">
                     <%
+                        Object validationFlash = session.getAttribute("n8nInvoiceValidation:" + e.getId());
+                        if (validationFlash != null) {
+                            session.removeAttribute("n8nInvoiceValidation:" + e.getId());
+                            List<Map<String, Object>> validationResults = (List<Map<String, Object>>) validationFlash;
+                            ObjectMapper validationMapper = new ObjectMapper();
+                            for (Map<String, Object> validationResult : validationResults) {
+                                String validationStatus = String.valueOf(validationResult.get("statut"));
+                                boolean validationOk = "VALIDE".equalsIgnoreCase(validationStatus);
+                                String validationJson = validationMapper.writeValueAsString(validationResult);
+                                validationJson = validationJson.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+                    %>
+                    <div class="alert <%=validationOk ? "alert-success" : "alert-warning"%>" role="alert">
+                        <strong>Contrôle automatique n8n — <%=validationStatus%></strong>
+                        <p>La facture est enregistrée. Résultat du contrôle :</p>
+                        <pre style="white-space: pre-wrap;"><%=validationJson%></pre>
+                    </div>
+                    <%
+                            }
+                        }
                         out.println(pc.getHtml());
                     %>
                 </div>

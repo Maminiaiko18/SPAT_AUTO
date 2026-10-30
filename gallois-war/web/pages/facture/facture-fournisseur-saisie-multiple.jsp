@@ -112,8 +112,7 @@
                                                                                 pi.getFormu().getChamp("idfournisseur").setPageAppel("choix/listeTiersChoix.jsp");
                                                                                 pi.getFormu().getChamp("idfournisseur").setAutre("readonly");
                                                                                 pi.getFormu().getChamp("remarque").setAutre("readonly");
-                                                                                pi.getFormu().getChamp("designation").setDefaut("Facturation
-                                                                                " + remarque);
+                                                                                pi.getFormu().getChamp("designation").setDefaut("Facturation " + remarque);
                                                                                 pi.getFormu().getChamp("projet").setPageAppel("choix/listeProjetChoix.jsp");
                                                                                 pi.getFormu().getChamp("projet").setAutre("readonly");
                                                                                 pi.getFormu().getChamp("code_etablissement").setPageAppel("choix/listeCodeEtablissementChoix.jsp");
@@ -171,11 +170,7 @@
                                                                                     code_etablissementlib =
                                                                                     chantiers[0].getCode_etablissementlib();
                                                                                     }
-                                                                                    pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value,
-                                                                                    'montantdevise', 'coursdevise',
-                                                                                    'fin.Coursdevise', 'iddevise',
-                                                                                    'iddevise',
-                                                                                    'montant','daty','desc');\"");
+                                                                                pi.getFormu().getChamp("iddevise").setAutre("onblur=\"dependanteChampUneValeur(this.value, 'montantdevise', 'coursdevise', 'fin.Coursdevise', 'iddevise', 'iddevise', 'montant', 'daty', 'desc');\"");
                                                                                     pi.getFormu().getChamp("montantdevise").setAutre("readonly");
                                                                                     pi.getFormu().getChamp("remarque").setDefaut(remarque);
                                                                                     pi.getFormu().getChamp("datyecheance").setDefaut(Utilitaire.dateDuJour());
@@ -187,32 +182,22 @@
                                                                                     pi.getFormu().getChamp("montantttc").setVisible(false);
                                                                                     pi.getFormu().getChamp("resp").setVisible(false);
                                                                                     pi.getFormu().getChamp("idfacturefournisseur").setVisible(false);
-                                                                                    pi.getFormu().getChamp("numfact").setLibelle("Num�ro
-                                                                                    Facture");
-                                                                                    pi.getFormu().getChamp("remarque").setLibelle("A
-                                                                                    facturer");
+                                                                                    pi.getFormu().getChamp("numfact").setLibelle("Numero facture");
+                                                                                    pi.getFormu().getChamp("remarque").setLibelle("A facturer");
                                                                                     pi.getFormu().getChamp("budget").setLibelle("Budget");
                                                                                     pi.getFormu().getChamp("designation").setLibelle("Designation");
-                                                                                    pi.getFormu().getChamp("dateemission").setLibelle("Date
-                                                                                    d'�mission");
-                                                                                    pi.getFormu().getChamp("datyecheance").setLibelle("Date
-                                                                                    d'�ch�ance");
-                                                                                    pi.getFormu().getChamp("montantdevise").setLibelle("Montant
-                                                                                    Devise");
+                                                                                    pi.getFormu().getChamp("dateemission").setLibelle("Date emission");
+                                                                                    pi.getFormu().getChamp("datyecheance").setLibelle("Date echeance");
+                                                                                    pi.getFormu().getChamp("montantdevise").setLibelle("Montant devise");
                                                                                     pi.getFormu().getChamp("iddevise").setLibelle("Devise");
                                                                                     pi.getFormu().getChamp("daty").setLibelle("Date");
                                                                                     pi.getFormu().getChamp("idfournisseur").setLibelle("Tiers");
-                                                                                    pi.getFormu().getChamp("numid").setLibelle("Num�ro
-                                                                                    compta");
-                                                                                    pi.getFormu().getChamp("code_etablissement").setLibelle("Code
-                                                                                    direction");
+                                                                                    pi.getFormu().getChamp("numid").setLibelle("Numero compta");
+                                                                                    pi.getFormu().getChamp("code_etablissement").setLibelle("Code direction");
                                                                                     pi.getFormu().getChamp("numeroop").setVisible(false);
 
-                                                                                    String idmere =
-                                                                                    request.getParameter("idmere");
-                                                                                    // affichage.Champ[] listeDetails =
-                                                                                    new
-                                                                                    affichage.Champ[pi.getNombreLigne()];
+                                                                                    String idmere = request.getParameter("idmere");
+                                                                                    affichage.Champ[] listeDetails = new affichage.Champ[pi.getNombreLigne()];
                                                                                     // Tva tva = new Tva();
                                                                                     for (int i = 0; i <
                                                                                         pi.getNombreLigne(); i++) {
@@ -225,7 +210,8 @@
                                                                                         i).setAutre("onchange='calculMontant(" + i + ")'");
             pi.getFormufle().getChamp(" qte_" + i).setAutre("onchange='calculMontant(" + i + ")'");
             pi.getFormufle().getChamp(" idingredient_" + i).setAutre("onchange='setDesignation(" + i + ")'");
-//            listeDetails[i] = new Liste(" tva_"+ i, tva, "valeurtva" , "valeurtva" ); } // //
+//            listeDetails[i] = new Liste(" tva_"+ i, tva, "valeurtva" , "valeurtva" );
+                                                                                        }
                                                                                         pi.getFormufle().changerEnChamp(listeDetails);
                                                                                         if (restes.length> 0) {
                                                                                         double montant = 0;
@@ -239,9 +225,7 @@
                                                                                             pi.getFormufle().getChamp("idingredient_"
                                                                                             +
                                                                                             i).setDefaut(restes[i].getId());
-                                                                                            //pi.getFormufle().getChamp("idingredient_"
-                                                                                            + i).setAutre("
-                                                                                            onchange='setDesignation("+i+")' ");
+                                                                                            // Ancien attribut JavaScript, remplace plus bas.
                 pi.getFormufle().getChamp(" qte_" + i).setDefaut("" + restes[i].getQuantiteReste());
                                                                                             pi.getFormufle().getChamp("pu_"
                                                                                             +
@@ -279,12 +263,9 @@
                                                                                             pi.getFormufle().getChamp("tva_0").setLibelle("TVA");
                                                                                             pi.getFormufle().getChamp("compte_0").setLibelle("Compte");
                                                                                             pi.getFormufle().getChamp("iddqe_0").setLibelle("D�signation");
-                                                                                            pi.getFormufle().getChamp("idingredient_0").setLibelle("ID
-                                                                                            Detail");
-                                                                                            pi.getFormufle().getChamp("qte_0").setLibelle("Quantite
-                                                                                            (nombre d'unites)");
-                                                                                            pi.getFormufle().getChamp("pu_0").setLibelle("Prix
-                                                                                            unitaire (pour une unite)");
+                                                                                            pi.getFormufle().getChamp("idingredient_0").setLibelle("ID detail");
+                                                                                            pi.getFormufle().getChamp("qte_0").setLibelle("Quantite (nombre d'unites)");
+                                                                                            pi.getFormufle().getChamp("pu_0").setLibelle("Prix unitaire (pour une unite)");
                                                                                             pi.getFormufle().getChamp("montant_0").setLibelle("Montant");
                                                                                             String[]
                                                                                             ordreFille={"idingredient", "compte"
