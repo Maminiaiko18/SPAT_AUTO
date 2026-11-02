@@ -22,6 +22,17 @@ if ($listener) {
     throw "Le port 8080 est déjà utilisé par $($process.ProcessName) (PID $($listener.OwningProcess)). Arrêtez WildFly avant ce démarrage. Ce script ne le stoppe pas automatiquement."
 }
 
+$apiListener = Get-NetTCPConnection -LocalPort 8088 -State Listen -ErrorAction SilentlyContinue |
+    Select-Object -First 1
+if (-not $apiListener) {
+    $apiScript = Join-Path $PSScriptRoot 'start-automation-api.ps1'
+    Start-Process -FilePath 'powershell.exe' -ArgumentList @(
+        '-NoExit',
+        '-ExecutionPolicy', 'Bypass',
+        '-File', "`"$apiScript`""
+    ) | Out-Null
+}
+
 $configuration = Import-Clixml -LiteralPath $credentialPath
 if (
     $configuration.Refuser -notmatch '^[0-9]{1,10}$' -or
