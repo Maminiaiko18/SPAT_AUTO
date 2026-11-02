@@ -110,6 +110,14 @@ Le contrat est `postman/specs/spaterp-bed-api.yaml`; le servlet est `gallois-war
 
 Le 28 octobre 2026, le contrat a passé `postman spec lint`, les 18 sources WAR ont compilé avec Ant et le WAR complet a été déployé dans WildFly après sauvegarde du précédent. Le servlet répond actuellement 503 sans configuration. Aucun BED n’a été lu ou modifié.
 
+## API DASE
+
+Le contrat OpenAPI est `postman/specs/spaterp-dase-api.yaml`; la route est implémentée par `gallois-war/src/java/mg/api/servlet/ApiDaseServlet.java`. `POST /api/demandes-achat` crée une demande d’achat et ses lignes en une seule transaction Oracle, avec les contrôles d’insertion et l’historique SPAT. `GET /api/demandes-achat/{id}` relit la demande et ses lignes. La DASE reste à l’état créé : cette API ne vise pas la demande et ne crée pas de bon de commande.
+
+L’identité de service doit être un compte DG actif autorisé par `ACT0001` sur `dem_achat_mere` et `dem_achat_fille`. Le jeton dédié `SPATERP_DASE_API_TOKEN` et son `REFUSER` `SPATERP_DASE_API_REFUSER` sont chargés uniquement dans le processus WildFly. La tâche de configuration DPAPI conserve les trois jetons existants et demande le jeton DASE lors de sa prochaine exécution; après configuration, arrêter WildFly puis le redémarrer avec `SPAT : démarrer WildFly avec API`.
+
+La collection `postman/collections/SPAT DASE API/` comprend les contrôles sans jeton, les données invalides, la lecture et une création de recette. La création est ignorée tant que `enableDaseCreation` n’est pas explicitement réglé à `true`; ne l’activer qu’avec un jeton et des références autorisés en préproduction. Aucun jeton ni donnée de recette ne doit être ajouté aux fichiers suivis par Git.
+
 ## Configuration locale des identités WildFly
 
-La tâche VS Code `SPAT : configurer les identités API WildFly (première fois)` demande le REFUSER d’un compte DG actif et trois jetons distincts, masqués. Elle les enregistre dans `automation-api/local/spat-wildfly-api-credentials.xml`, protégé par DPAPI pour le compte Windows courant et exclu de Git. Arrêtez l’instance WildFly déjà ouverte, puis utilisez `SPAT : démarrer WildFly avec API`; cette tâche transmet les variables uniquement au processus WildFly et affiche ses journaux dans le terminal. Elle refuse de démarrer si le port 8080 est déjà occupé.
+La tâche VS Code `SPAT : configurer les identités API WildFly (première fois)` demande le REFUSER d’un compte DG actif et quatre jetons distincts, masqués. Si la configuration locale à trois jetons existe déjà, elle la conserve et demande uniquement le jeton DASE. Les identifiants sont enregistrés dans `automation-api/local/spat-wildfly-api-credentials.xml`, protégé par DPAPI pour le compte Windows courant et exclu de Git. Arrêtez l’instance WildFly déjà ouverte, puis utilisez `SPAT : démarrer WildFly avec API`; cette tâche transmet les variables uniquement au processus WildFly et affiche ses journaux dans le terminal. Elle refuse de démarrer si le port 8080 est déjà occupé.
