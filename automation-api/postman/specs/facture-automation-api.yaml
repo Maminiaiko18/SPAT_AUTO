@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: SPAT Facture Automation API
+  version: 0.1.0
+  description: >-
+    Contrôle en lecture seule d'une proposition de facture fournisseur par
+    rapport à une ligne de bon de livraison SPAT.
+servers:
+  - url: http://localhost:8088
+    description: Valeur locale par défaut, surchargeable par un environnement Postman
+paths:
+  /api/v1/health:
+    get:
+      operationId: getHealth
+      summary: Vérifier que le service répond
+      responses:
+        '200':
+          description: Service disponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: UP
+                service: facture-automation-api
+  /api/v1/ready:
+    get:
+      operationId: checkOracleReadiness
+      summary: Vérifier que l’API peut lire Oracle SPAT_RO
+      responses:
+        '200':
+          description: L’API et Oracle sont prêts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessResponse'
+        '503':
+          description: Oracle SPAT_RO est absent ou injoignable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessResponse'
+  /api/v1/factures-fournisseurs/validation:
+    post:
+      operationId: validateSupplierInvoice
+      summary: Contrôler une proposition de facture sans écrire dans SPAT
+      description: >-
+        Compare les lignes à la vue Oracle de reste à facturer. Les quantités
+        et prix sont comparés sans tolérance métier implicite. Un résultat
+        A_CORRIGER est un contrôle effectué, pas une erreur HTTP.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidationRequest'
+            example:
+              idBonLivraison: BL-DEMO
+              idBonCommande: BC-DEMO
+              lignes:
+                - idLigneLivraison: BLF-DEMO
+                  quantite: 2
+                  prixUnitaire: 1500
+      responses:
+        '200':
+          description: Contrôle effectué, résultat par ligne inclus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+              examples:
+                valide:
+                  value:
+                    statut: VALIDE
+                    idBonLivraison: BL-DEMO
+                    idBonCommande: BC-DEMO
+                    lignes:
+                      - idLigneLivraison: BLF-DEMO
+                        valide: true
+                        ecarts: []
+                aCorriger:
+                  value:
+                    statut: A_CORRIGER
+                    idBonLivraison: BL-DEMO
+                    idBonCommande: BC-DEMO
+                    lignes:
+                      - idLigneLivraison: BLF-DEMO
+                        valide: false
+                        ecarts:
+                          - Ligne introuvable pour ce bon de livraison et ce bon de commande.
+        '400':
+          description: Corps JSON invalide ou champs obligatoires non conformes.
+        '503':
+          description: Connexion Oracle lecture seule non activée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+              example:
+                erreur: Oracle SPAT_RO non configuré
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, service]
+      properties:
+        status:
+          type: string
+          example: UP
+        service:
+          type: string
+          example: facture-automation-api
+    ReadinessResponse:
+      type: object
+      required: [status, service, database, oracleCode]
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN]
+        service:
+          type: string
+        database:
+          type: string
+        oracleCode:
+          type: string
+    ValidationRequest:
+      type: object
+      required: [idBonLivraison, idBonCommande, lignes]
+      properties:
+        idBonLivraison:
+          type: string
+          minLength: 1
+        idBonCommande:
+          type: string
+          minLength: 1
+        lignes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ProposedLine'
+    ProposedLine:
+      type: object
+      required: [idLigneLivraison, quantite, prixUnitaire]
+      properties:
+        idLigneLivraison:
+          type: string
+          minLength: 1
+        quantite:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        prixUnitaire:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+    ValidationResponse:
+      type: object
+      required: [statut, idBonLivraison, idBonCommande, lignes]
+      properties:
+        statut:
+          type: string
+          enum: [VALIDE, A_CORRIGER]
+        idBonLivraison:
+          type: string
+        idBonCommande:
+          type: string
+        lignes:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineResult'
+    LineResult:
+      type: object
+      required: [idLigneLivraison, valide, ecarts]
+      properties:
+        idLigneLivraison:
+          type: string
+        valide:
+          type: boolean
+        ecarts:
+          type: array
+          items:
+            type: string
+    ServiceUnavailableResponse:
+      type: object
+      required: [erreur]
+      properties:
+        erreur:
+          type: string

@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: SPAT Tiers API
+  version: 0.1.0
+  description: >-
+    Contrat documentant la route de création de tiers existante dans le WAR SPAT.
+    Le jeton est fourni par l'appelant; l'utilisateur d'audit est configuré côté serveur.
+servers:
+  - url: http://localhost:8080/spat
+    description: Contexte local du WAR SPAT sur WildFly
+paths:
+  /api/tiers:
+    post:
+      operationId: createTier
+      summary: Créer un tiers
+      description: >-
+        Crée un tiers et attache les justificatifs NIF et STAT dans
+        ATTACHER_FICHIER sous son identifiant. Le JSON du champ multipart payload
+        doit attester que les pièces officielles ont été vérifiées par l'appelant.
+        L'API contrôle le format et les doublons dans SPAT, mais ne consulte pas
+        directement les registres DGI/INSTAT. Les fichiers acceptés sont PDF,
+        JPEG ou PNG, 10 Mo maximum chacun. Le champ type doit identifier une
+        entrée existante de TYPECLIENT. Cette opération écrit dans SPAT; ne
+        l'exécuter qu'en préproduction avec des données métier autorisées.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [payload, nifDocument, statDocument]
+              properties:
+                payload:
+                  type: string
+                  description: Objet TierCreateRequest sérialisé en JSON, avec verificationJustificatifs=true.
+                nifDocument:
+                  type: string
+                  format: binary
+                  description: Justificatif officiel du NIF (PDF, JPEG ou PNG, 10 Mo maximum).
+                statDocument:
+                  type: string
+                  format: binary
+                  description: Justificatif officiel du STAT (PDF, JPEG ou PNG, 10 Mo maximum).
+            encoding:
+              payload:
+                contentType: application/json
+      responses:
+        '201':
+          description: Tiers créé.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TierCreateResponse'
+        '400':
+          description: Multipart ou JSON invalide, justificatif absent, attestation absente, nom/type manquant ou identifiant légal invalide.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Jeton Bearer absent ou incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Taille de requête supérieure à 21 Mo ou justificatif supérieur à 10 Mo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Un tiers existe déjà avec le NIF ou le STAT fourni.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: SPATERP_API_TOKEN ou SPATERP_API_USER absent sur le serveur.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Échec inattendu de la création dans SPAT.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Jeton opaque configuré côté serveur dans SPATERP_API_TOKEN.
+  schemas:
+    TierCreateRequest:
+      type: object
+      required: [nom, type, nif, stat, verificationJustificatifs]
+      properties:
+        nom:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          nullable: true
+        nif:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: '^\d{10}$'
+          description: NIF DGI à 10 chiffres, y compris les zéros initiaux.
+        stat:
+          type: string
+          minLength: 17
+          maxLength: 17
+          pattern: '^\d{17}$'
+          description: STAT à 17 chiffres selon le contrôle historique SPAT.
+        verificationJustificatifs:
+          type: boolean
+          enum: [true]
+          description: Attestation de l'appelant que les pièces officielles NIF et STAT ont été contrôlées.
+        contact:
+          type: string
+          nullable: true
+        responsable:
+          type: string
+          nullable: true
+        adresse:
+          type: string
+          nullable: true
+        type:
+          type: string
+          minLength: 1
+          description: Identifiant existant dans TYPECLIENT.ID.
+        compteAuxFournisseur:
+          type: string
+          nullable: true
+        compteAuxClient:
+          type: string
+          nullable: true
+        cin:
+          type: string
+          nullable: true
+          description: Validé par le modèle Tiers lorsqu'il est renseigné.
+        cp:
+          type: string
+          nullable: true
+    TierCreateResponse:
+      type: object
+      required: [id, nom, type, etat, justificatifsNifStatAttaches]
+      properties:
+        id:
+          type: string
+        nom:
+          type: string
+        type:
+          type: string
+        etat:
+          type: integer
+        justificatifsNifStatAttaches:
+          type: boolean
+          enum: [true]
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string

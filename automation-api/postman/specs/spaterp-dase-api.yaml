@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  title: SPAT DASE API
+  version: 0.1.0
+  description: >-
+    API privée de création d'une demande d'achat (DASE) en brouillon et de lecture
+    par identifiant. La création est historisée sous l'identité de service SPAT.
+    Le visa et la création du bon de commande restent des actions séparées dans SPAT.
+servers:
+  - url: http://localhost:8080/spat
+    description: WildFly local
+security:
+  - DaseApiBearer: []
+paths:
+  /api/demandes-achat:
+    post:
+      operationId: createDase
+      summary: Créer une DASE en brouillon
+      description: >-
+        Crée la demande et ses lignes dans une seule transaction. Les contrôles
+        ACT0001 et l'historique SPAT sont appliqués. La DASE n'est pas visée et
+        aucun bon de commande n'est créé. À utiliser uniquement en préproduction
+        avec des données de test approuvées.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DaseCreation'
+      responses:
+        '201':
+          description: DASE créée en brouillon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dase'
+        '400': { description: Données ou ligne invalides }
+        '401': { description: Jeton Bearer absent ou invalide }
+        '403': { description: 'Compte de service inactif, non DG ou sans ACT0001' }
+        '503': { description: API DASE ou connexion SPAT non configurée }
+        '500': { description: Échec inattendu; la transaction est annulée }
+  /api/demandes-achat/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '^[A-Za-z0-9_-]{1,40}$'
+    get:
+      operationId: getDase
+      summary: Lire une DASE et ses lignes
+      responses:
+        '200':
+          description: DASE trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dase'
+        '400': { description: Identifiant invalide }
+        '401': { description: Jeton Bearer absent ou invalide }
+        '403': { description: Compte de service inactif ou non DG }
+        '404': { description: DASE introuvable }
+        '503': { description: API DASE ou connexion SPAT non configurée }
+        '500': { description: Échec inattendu de lecture }
+components:
+  securitySchemes:
+    DaseApiBearer:
+      type: http
+      scheme: bearer
+      description: Jeton dédié configuré dans SPATERP_DASE_API_TOKEN.
+  schemas:
+    DaseCreation:
+      type: object
+      additionalProperties: false
+      required: [daty, codeetablissement, projet, designation, lignes]
+      properties:
+        daty:
+          type: string
+          format: date
+        codeetablissement:
+          type: string
+          minLength: 1
+        projet:
+          type: string
+          minLength: 1
+        designation:
+          type: string
+          minLength: 1
+        idcategorieachat: { type: string, nullable: true }
+        patrimoine:
+          type: string
+          nullable: true
+        lignes:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/DaseLineCreation'
+    DaseLineCreation:
+      type: object
+      additionalProperties: false
+      required: [designation, unite, qte, pu]
+      properties:
+        produit:
+          type: string
+          nullable: true
+        designation:
+          type: string
+          minLength: 1
+        unite:
+          type: string
+          minLength: 1
+        qte:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        pu:
+          type: number
+          minimum: 0
+        remarque:
+          type: string
+          nullable: true
+    Dase:
+      type: object
+      required: [id, num, daty, codeetablissement, projet, designation, etat, lignes]
+      properties:
+        id: { type: string }
+        num: { type: string }
+        daty: { type: string, format: date }
+        codeetablissement: { type: string }
+        projet: { type: string }
+        designation: { type: string }
+        idcategorieachat: { type: string }
+        patrimoine: { type: string, nullable: true }
+        etat:
+          type: integer
+          description: État SPAT créé (brouillon); aucun visa automatique.
+        lignes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DaseLine'
+    DaseLine:
+      allOf:
+        - $ref: '#/components/schemas/DaseLineCreation'
+        - type: object
+          required: [id, idmere, montant]
+          properties:
+            id: { type: string }
+            idmere: { type: string }
+            montant: { type: number }

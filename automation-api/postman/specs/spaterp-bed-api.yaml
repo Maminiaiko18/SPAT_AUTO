@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: SPAT BED API
+  version: 0.1.0
+  description: >-
+    Lecture et modification des champs de base d’un BED en état créé et non engagé.
+    Le type peut passer de BED à État de dépense; le retour vers BED applique les règles
+    de factures du flux SPAT. Les tiers, factures/lignes, visa et engagement restent exclus.
+    Le compte de service doit être actif et de rôle DG; toute écriture est historisée.
+servers:
+  - url: http://localhost:8080/spat
+    description: WildFly local
+security:
+  - BedApiBearer: []
+paths:
+  /api/bordereaux-bed/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '^[A-Za-z0-9_-]{1,40}$'
+    get:
+      summary: Lire un BED
+      responses:
+        '200':
+          description: BED trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bed'
+        '400': { description: Identifiant invalide }
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: 'Compte de service absent, désactivé ou non DG' }
+        '404': { description: BED introuvable }
+        '503': { description: API BED non configurée }
+    put:
+      summary: Modifier les champs de base d’un BED en brouillon
+      description: >-
+        Met à jour daty, anneebudgetaire, designation et typebordereau dans BORDEREAUFF.
+        L’état est verrouillé pendant l’opération; les BED visés, engagés ou annulés
+        sont refusés. Un passage vers TYPB1 (BED) est refusé si une facture liée a un bon
+        de livraison, est déjà visée, porte une provision ou si aucune facture n’est liée.
+        Le contrôle ACT0002 est évalué sur FSBBED comme dans l’écran
+        historique et une entrée d’historique SPAT est écrite. N’exécuter qu’en recette.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BedModification'
+      responses:
+        '200':
+          description: BED modifié et historisé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bed'
+        '400': { description: Champs invalides ou champs non autorisés présents }
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Compte DG actif ou droit ACT0002 requis }
+        '404': { description: BED introuvable }
+        '409': { description: 'BED visé, annulé, engagé ou transition de type invalide' }
+        '503': { description: API BED non configurée }
+        '500': { description: Échec de mise à jour }
+components:
+  securitySchemes:
+    BedApiBearer:
+      type: http
+      scheme: bearer
+      description: Jeton configuré localement dans SPATERP_BED_API_TOKEN.
+  schemas:
+    Bed:
+      type: object
+      properties:
+        id: { type: string }
+        daty: { type: string, format: date, nullable: true }
+        anneebudgetaire: { type: integer }
+        designation: { type: string, nullable: true }
+        typebordereau: { type: string, nullable: true }
+        etat: { type: integer }
+        idengagement: { type: string, nullable: true }
+    BedModification:
+      type: object
+      additionalProperties: false
+      required: [daty, anneebudgetaire, designation, typebordereau]
+      properties:
+        daty: { type: string, format: date }
+        anneebudgetaire: { type: integer, minimum: 1 }
+        designation: { type: string, minLength: 1, maxLength: 40 }
+        typebordereau:
+          type: string
+          enum: [TYPB1, TYPB2]
+          description: TYPB1 correspond à BED; TYPB2 correspond à État de dépense.

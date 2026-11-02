@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: SPAT User Management API
+  version: 0.1.0
+  description: >-
+    API privée de gestion des comptes SPAT. Toutes les opérations sont exécutées
+    et historisées sous un compte de service DG actif. La suppression permanente
+    n'est pas exposée. Le mot de passe transmis à la création ou à la modification
+    n'est jamais retourné.
+servers:
+  - url: http://localhost:8080/spat
+    description: WildFly local
+security:
+  - UserApiBearer: []
+paths:
+  /api/utilisateurs/{refuser}:
+    parameters:
+      - $ref: '#/components/parameters/Refuser'
+    get:
+      summary: Lire un compte utilisateur
+      responses:
+        '200':
+          description: Compte trouvé; aucun mot de passe n'est exposé.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Utilisateur'
+        '400': { description: Référence invalide }
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Le compte de service n'est pas un DG actif }
+        '404': { description: Compte introuvable }
+        '503': { description: API ou EJB de gestion indisponible }
+    put:
+      summary: Modifier la fiche et le rôle d'un compte
+      description: >-
+        Réservé au service DG. Le mot de passe est requis car le service historique
+        met à jour ses paramètres de chiffrement lors de chaque modification.
+        Le compte de service ne peut pas être modifié par cette route.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UtilisateurModification'
+      responses:
+        '200':
+          description: Compte modifié
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationCompte'
+        '400': { description: Données invalides ou rôle inconnu }
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Le compte de service n'est pas un DG actif }
+        '404': { description: Compte introuvable }
+        '409': { description: Login déjà utilisé ou compte de service ciblé }
+        '503': { description: API ou EJB de gestion indisponible }
+  /api/utilisateurs:
+    post:
+      summary: Créer un compte utilisateur
+      description: >-
+        Réservé au service DG. La création utilise le chiffrement, l'historique et
+        les insertions connexes du service historique SPAT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UtilisateurCreation'
+      responses:
+        '201':
+          description: Compte créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationCompte'
+        '400': { description: Données invalides ou rôle inconnu }
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Le compte de service n'est pas un DG actif }
+        '409': { description: Login déjà utilisé }
+        '503': { description: API ou EJB de gestion indisponible }
+  /api/utilisateurs/{refuser}/desactiver:
+    post:
+      summary: Désactiver un compte
+      description: Le compte de service ne peut pas se désactiver lui-même.
+      parameters:
+        - $ref: '#/components/parameters/Refuser'
+      responses:
+        '200':
+          description: Compte désactivé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationCompte'
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Le compte de service n'est pas un DG actif }
+        '404': { description: Compte introuvable }
+        '409': { description: Compte déjà désactivé ou compte de service ciblé }
+        '503': { description: API ou EJB de gestion indisponible }
+  /api/utilisateurs/{refuser}/reactiver:
+    post:
+      summary: Réactiver un compte
+      parameters:
+        - $ref: '#/components/parameters/Refuser'
+      responses:
+        '200':
+          description: Compte réactivé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationCompte'
+        '401': { description: Jeton absent ou invalide }
+        '403': { description: Le compte de service n'est pas un DG actif }
+        '404': { description: Compte introuvable }
+        '409': { description: Compte déjà actif }
+        '503': { description: API ou EJB de gestion indisponible }
+components:
+  securitySchemes:
+    UserApiBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: Jeton dédié stocké côté processus WildFly, jamais dans Git.
+  parameters:
+    Refuser:
+      name: refuser
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]+$'
+  schemas:
+    UtilisateurCreation:
+      type: object
+      required: [loginuser, pwduser, nomuser, idrole]
+      properties:
+        loginuser: { type: string, maxLength: 100 }
+        pwduser: { type: string, format: password, writeOnly: true, maxLength: 256 }
+        nomuser: { type: string, maxLength: 200 }
+        adruser: { type: string }
+        teluser: { type: string }
+        idrole: { type: string }
+        codeEtablissement:
+          type: string
+          description: "Facultatif; s'il est fourni, le service historique vérifie qu'il n'est pas vide."
+    UtilisateurModification:
+      type: object
+      required: [loginuser, pwduser, nomuser, idrole]
+      properties:
+        loginuser: { type: string, maxLength: 100 }
+        pwduser: { type: string, format: password, writeOnly: true, maxLength: 256 }
+        nomuser: { type: string, maxLength: 200 }
+        adruser: { type: string }
+        teluser: { type: string }
+        idrole: { type: string }
+    Utilisateur:
+      type: object
+      properties:
+        refuser: { type: string }
+        loginuser: { type: string }
+        nomuser: { type: string }
+        adruser: { type: string }
+        teluser: { type: string }
+        idrole: { type: string }
+        etat: { type: string, enum: [ACTIF, DESACTIVE] }
+    OperationCompte:
+      type: object
+      properties:
+        refuser: { type: string }
+        etat: { type: string, enum: [ACTIF, DESACTIVE, MODIFIE] }
