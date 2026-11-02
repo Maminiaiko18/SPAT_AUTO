@@ -36,7 +36,8 @@ if (Test-Path -LiteralPath $credentialPath) {
         $configuration.Refuser -notmatch '^[0-9]{1,10}$' -or
         $configuration.Tiers.UserName -ne 'SPATERP_API_TOKEN' -or
         $configuration.Utilisateurs.UserName -ne 'SPATERP_USER_API_TOKEN' -or
-        $configuration.Bed.UserName -ne 'SPATERP_BED_API_TOKEN'
+        $configuration.Bed.UserName -ne 'SPATERP_BED_API_TOKEN' -or
+        $configuration.Dase.UserName -ne 'SPATERP_DASE_API_TOKEN'
     ) {
         throw 'Le fichier local ne contient pas les identifiants API attendus.'
     }
@@ -46,6 +47,8 @@ if (Test-Path -LiteralPath $credentialPath) {
     $env:SPATERP_USER_API_TOKEN = $configuration.Utilisateurs.GetNetworkCredential().Password
     $env:SPATERP_BED_API_REFUSER = $configuration.Refuser
     $env:SPATERP_BED_API_TOKEN = $configuration.Bed.GetNetworkCredential().Password
+    $env:SPATERP_DASE_API_REFUSER = $configuration.Refuser
+    $env:SPATERP_DASE_API_TOKEN = $configuration.Dase.GetNetworkCredential().Password
     "$(Get-Date -Format s) Identités API WildFly chargées depuis la configuration DPAPI locale." | Out-File -LiteralPath $logPath -Append -Encoding utf8
 } else {
     "$(Get-Date -Format s) Configuration API WildFly absente; les routes protégées répondront 503." | Out-File -LiteralPath $logPath -Append -Encoding utf8
@@ -62,6 +65,7 @@ try {
 finally {
     foreach ($name in @('SPATERP_API_USER', 'SPATERP_API_TOKEN', 'SPATERP_USER_API_REFUSER',
             'SPATERP_USER_API_TOKEN', 'SPATERP_BED_API_REFUSER', 'SPATERP_BED_API_TOKEN',
+            'SPATERP_DASE_API_REFUSER', 'SPATERP_DASE_API_TOKEN',
             'SPAT_N8N_VALIDATION_WEBHOOK_URL')) {
         Remove-Item "Env:$name" -ErrorAction SilentlyContinue
     }
