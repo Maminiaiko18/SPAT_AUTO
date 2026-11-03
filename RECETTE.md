@@ -12,3 +12,10 @@
 - GET /api/demandes-achat sans identifiant : 400 (remarque : refus avant controle du jeton, sans fuite de donnees)
 - Lecture avec le vrai jeton : NON TESTEE
 - Creation (POST) : NON TESTEE (base de test non confirmee)
+
+## Utilisateurs - lecture seule - 2026-11-03
+- Sans jeton : 401 (attendu 401) OK
+- Faux jeton : 401 (attendu 401) OK
+- Bon jeton, compte inexistant : 404 (attendu 404) OK
+- Reference non numerique : 400 (attendu 400) OK
+- Ecritures (creation, modification, desactivation, reactivation) : NON TESTEES (base de test non confirmee)
