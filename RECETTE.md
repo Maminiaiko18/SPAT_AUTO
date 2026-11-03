@@ -24,3 +24,8 @@
 - Base Oracle locale (service XEPDB1, schema SPAT_CAPITAINERIE), meme machine pour WildFly et automation-api
 - Base confirmee comme base de test par l'encadreur : ecritures autorisees
 - Donnees de test marquees TEST-RECETTE-2026-11-03
+
+## Confidentialite par etablissement (analyse du code)
+- Prioritaire.makeListConfidentiality filtre les listes par prefixe du code etablissement de l'utilisateur connecte (regles PRIORITAIRE, ETAT=11, par utilisateur ou role).
+- L'API DASE ne reproduit pas ce controle : elle peut creer une DASE sur un etablissement que l'utilisateur de service ne verrait pas dans l'interface.
+- Amelioration possible : verifier le droit de l'utilisateur de service sur l'etablissement demande avant l'ecriture. Non realisee avant la cloture.
