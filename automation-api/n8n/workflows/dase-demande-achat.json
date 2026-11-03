@@ -139,7 +139,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8080/spat/api/demandes-achat",
+        "url": "http://127.0.0.1:8080/spat/api/demandes-achat",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -167,7 +167,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=http://localhost:8080/spat/api/demandes-achat/{{$json.id}}",
+        "url": "=http://127.0.0.1:8080/spat/api/demandes-achat/{{$json.id}}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {
