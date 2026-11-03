@@ -19,3 +19,8 @@
 - Bon jeton, compte inexistant : 404 (attendu 404) OK
 - Reference non numerique : 400 (attendu 400) OK
 - Ecritures (creation, modification, desactivation, reactivation) : NON TESTEES (base de test non confirmee)
+
+## Environnement de test - 2026-11-03
+- Base Oracle locale (service XEPDB1, schema SPAT_CAPITAINERIE), meme machine pour WildFly et automation-api
+- Base confirmee comme base de test par l'encadreur : ecritures autorisees
+- Donnees de test marquees TEST-RECETTE-2026-11-03
