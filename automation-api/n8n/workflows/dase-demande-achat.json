@@ -1,0 +1,366 @@
+{
+  "name": "SPAT - DASE demande d'achat (controle et creation)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "spat/dase/demandes-achat",
+        "responseMode": "responseNode",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "id": "a1f0c1d0-0001-4a01-9b01-000000000001",
+      "name": "Recevoir la demande DASE",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "b1f0c1d0-0001-4a01-9b01-000000000001",
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "SPAT Webhook Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst rawMode = body.mode;\nconst mode = rawMode === undefined || rawMode === null || rawMode === '' ? 'controle' : rawMode;\n\nif (rawMode !== undefined && rawMode !== null && rawMode !== '' && mode !== 'controle' && mode !== 'creation') {\n  errors.push({ field: 'mode', message: 'Le mode doit valoir controle ou creation.' });\n}\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowedRoot = ['mode', 'daty', 'codeetablissement', 'projet', 'designation', 'idcategorieachat', 'patrimoine', 'lignes'];\nif (body && typeof body === 'object' && !Array.isArray(body)) {\n  for (const key of Object.keys(body)) {\n    if (!allowedRoot.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n  }\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\nconst isOptionalText = (value) => value === undefined || value === null || typeof value === 'string';\nconst isDate = (value) => typeof value === 'string' && /^\\d{4}-\\d{2}-\\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));\n\nif (!isDate(body.daty)) errors.push({ field: 'daty', message: 'Date invalide, format attendu AAAA-MM-JJ.' });\nfor (const key of ['codeetablissement', 'projet', 'designation']) {\n  if (!isText(body[key])) errors.push({ field: key, message: 'Valeur texte non vide requise.' });\n}\nif (!isOptionalText(body.idcategorieachat)) errors.push({ field: 'idcategorieachat', message: 'Valeur texte ou null attendue.' });\nif (!isOptionalText(body.patrimoine)) errors.push({ field: 'patrimoine', message: 'Valeur texte ou null attendue.' });\n\nconst lines = body.lignes;\nif (!Array.isArray(lines) || lines.length < 1 || lines.length > 100) {\n  errors.push({ field: 'lignes', message: 'Entre 1 et 100 lignes sont requises.' });\n} else {\n  const allowedLine = ['produit', 'designation', 'unite', 'qte', 'pu', 'remarque'];\n  lines.forEach((line, index) => {\n    const prefix = 'lignes[' + index + ']';\n    if (!line || typeof line !== 'object' || Array.isArray(line)) {\n      errors.push({ field: prefix, message: 'Ligne invalide.' });\n      return;\n    }\n    for (const key of Object.keys(line)) {\n      if (!allowedLine.includes(key)) errors.push({ field: prefix + '.' + key, message: 'Champ non autorise.' });\n    }\n    if (!isText(line.designation)) errors.push({ field: prefix + '.designation', message: 'Valeur texte non vide requise.' });\n    if (!isText(line.unite)) errors.push({ field: prefix + '.unite', message: 'Valeur texte non vide requise.' });\n    if (typeof line.qte !== 'number' || !Number.isFinite(line.qte) || line.qte <= 0) errors.push({ field: prefix + '.qte', message: 'Nombre strictement positif requis.' });\n    if (typeof line.pu !== 'number' || !Number.isFinite(line.pu) || line.pu < 0) errors.push({ field: prefix + '.pu', message: 'Nombre positif ou nul requis.' });\n    if (!isOptionalText(line.produit)) errors.push({ field: prefix + '.produit', message: 'Valeur texte ou null attendue.' });\n    if (!isOptionalText(line.remarque)) errors.push({ field: prefix + '.remarque', message: 'Valeur texte ou null attendue.' });\n  });\n}\n\nconst payload = {\n  daty: body.daty,\n  codeetablissement: body.codeetablissement,\n  projet: body.projet,\n  designation: body.designation,\n  lignes: body.lignes\n};\nif (Object.prototype.hasOwnProperty.call(body, 'idcategorieachat')) payload.idcategorieachat = body.idcategorieachat;\nif (Object.prototype.hasOwnProperty.call(body, 'patrimoine')) payload.patrimoine = body.patrimoine;\n\nreturn [{ json: { mode, payload, ok: errors.length === 0, errors } }];"
+      },
+      "id": "a1f0c1d0-0002-4a02-9b02-000000000002",
+      "name": "Contrôler les champs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1f0c1d0-0003-4a03-9b03-000000000003",
+              "leftValue": "={{$json.ok}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1f0c1d0-0003-4a03-9b03-000000000003",
+      "name": "Champs valides ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c1f0c1d0-0004-4a04-9b04-000000000004",
+                    "leftValue": "={{$json.mode}}",
+                    "rightValue": "creation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "creation"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c1f0c1d0-0005-4a05-9b05-000000000005",
+                    "leftValue": "={{$json.mode}}",
+                    "rightValue": "controle",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "controle"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1f0c1d0-0004-4a04-9b04-000000000004",
+      "name": "Selon le mode",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        960,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8080/spat/api/demandes-achat",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json.payload}}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "a1f0c1d0-0005-4a05-9b05-000000000005",
+      "name": "Créer la DASE en brouillon",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        180
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "SPAT DASE API Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=http://localhost:8080/spat/api/demandes-achat/{{$json.id}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "a1f0c1d0-0006-4a06-9b06-000000000006",
+      "name": "Relire la DASE créée",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1440,
+        180
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "SPAT DASE API Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { mode: 'creation', ecrit: true, dase: $json } }}",
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "id": "a1f0c1d0-0007-4a07-9b07-000000000007",
+      "name": "Réponse création",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { mode: 'controle', valide: true, ecrit: false, payload: $json.payload } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "a1f0c1d0-0008-4a08-9b08-000000000008",
+      "name": "Réponse contrôle (lecture seule)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { mode: $json.mode, valide: false, ecrit: false, errors: $json.errors } }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "a1f0c1d0-0009-4a09-9b09-000000000009",
+      "name": "Réponse invalide",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { error: 'Erreur API DASE.' } }}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "id": "a1f0c1d0-0010-4a10-9b10-000000000010",
+      "name": "Réponse erreur API DASE",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        540
+      ]
+    }
+  ],
+  "connections": {
+    "Recevoir la demande DASE": {
+      "main": [
+        [
+          {
+            "node": "Contrôler les champs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contrôler les champs": {
+      "main": [
+        [
+          {
+            "node": "Champs valides ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Champs valides ?": {
+      "main": [
+        [
+          {
+            "node": "Selon le mode",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse invalide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Selon le mode": {
+      "main": [
+        [
+          {
+            "node": "Créer la DASE en brouillon",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse contrôle (lecture seule)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Créer la DASE en brouillon": {
+      "main": [
+        [
+          {
+            "node": "Relire la DASE créée",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse erreur API DASE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Relire la DASE créée": {
+      "main": [
+        [
+          {
+            "node": "Réponse création",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse erreur API DASE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d1f0c1d0-0001-4a01-9b01-000000000001",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
