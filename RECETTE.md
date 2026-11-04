@@ -29,3 +29,7 @@
 - Prioritaire.makeListConfidentiality filtre les listes par prefixe du code etablissement de l'utilisateur connecte (regles PRIORITAIRE, ETAT=11, par utilisateur ou role).
 - L'API DASE ne reproduit pas ce controle : elle peut creer une DASE sur un etablissement que l'utilisateur de service ne verrait pas dans l'interface.
 - Amelioration possible : verifier le droit de l'utilisateur de service sur l'etablissement demande avant l'ecriture. Non realisee avant la cloture.
+
+## Utilisateurs - creation - 2026-11-04
+- Creation du compte test.recette (role redacteur, etablissement CODE000021) : 201 Created, refuser 2520, etat ACTIF.
+- Donnee de test conservee (pas de route de suppression).
