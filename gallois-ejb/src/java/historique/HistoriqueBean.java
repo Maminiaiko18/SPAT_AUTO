@@ -252,7 +252,7 @@ public class HistoriqueBean implements HistoriqueRemote, HistoriqueLocal, Sessio
                 c = new UtilDB().GetConn();
                 MapUtilisateur modele = new MapUtilisateur();
                 ps = c.prepareStatement("SELECT * FROM " + modele.getNomTableSelect() + " WHERE REFUSER = ?");
-                ps.setString(1, refUser);
+                ps.setString(1, iduser);
                 rs = ps.executeQuery();
                 MapUtilisateur[] utils = (MapUtilisateur[])CGenUtil.transformeDataReader(rs, modele, c);
                 rs.close();
