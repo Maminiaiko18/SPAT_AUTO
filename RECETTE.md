@@ -33,3 +33,10 @@
 ## Utilisateurs - creation - 2026-11-04
 - Creation du compte test.recette (role redacteur, etablissement CODE000021) : 201 Created, refuser 2520, etat ACTIF.
 - Donnee de test conservee (pas de route de suppression).
+
+- PUT /api/utilisateurs/2520 (sans codeEtablissement, avec teluser) : 500 'La modification du compte a echoue'. Log serveur : exception LOGIN DEJA UTILISE dans HistoriqueBean.updateUtilisateurs (ligne 267) alors que le login est inchange. Transaction annulee. Cause a analyser (regression possible de la correction de l'injection SQL).
+- Limite : le 500 generique masque une erreur metier (login deja utilise) qui devrait etre un 409.
+
+- Analyse : le diff de la correction SQL (commit 50b4e350) conserve la logique d'origine. Hypothese revisee : l'appel de updateUtilisateurs dans ApiUtilisateurServlet.doPut passe peut-etre un mauvais argument (iduser/refUser). A verifier.
+
+- PUT /api/utilisateurs/2520 apres correction (HistoriqueBean ligne 255, iduser au lieu de refUser) : 200 MODIFIE. Vue UTILISATEURROLE : 1 ligne pour test.recette. Connexion dans le site : encore refusee, cause en cours d'analyse (traitement du mot de passe ?).
