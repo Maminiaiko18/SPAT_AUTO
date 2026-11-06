@@ -62,3 +62,10 @@
 - PUT sur un BED engage (BRD0000001943111321) : 409 'Seul un BED cree et non engage peut etre modifie'. Relecture : BED inchange.
 - Limite : les 231 BED valides (etat 11) n'ont pas d'annee budgetaire ; l'API les rejette en 400 avant le controle d'etat, le refus d'un BED valide n'a pas pu etre observe.
 - Verification en base apres le 409 : (designation inchangee : oui).
+
+## Tiers - creation - 2026-11-06
+- Premier essai : 400 'Champ multipart non reconnu'. Cause (ApiTiersServlet lignes 87 a 103) : payload doit etre un champ de formulaire (isFormField), nifDocument et statDocument de vrais fichiers. Le script envoyait payload comme fichier joint. Aucune ecriture. Script corrige.
+- Creation (type TC009, NIF 9999766457, STAT 99998668686973795, pieces synthetiques PDF et PNG) : 201, id TIE0000009442100400, justificatifs rattaches.
+- Doublon (memes NIF et STAT) : 409 'Un tiers utilise deja le NIF ou le STAT fourni'.
+- Le contrat multipart est strict (JSON en champ de formulaire, pieces en fichiers) : a documenter dans le contrat OpenAPI.
+- Donnee de test conservee : TEST-RECETTE-2026-11-06 (pas de route de suppression). Les registres DGI/INSTAT ne sont pas consultes.
