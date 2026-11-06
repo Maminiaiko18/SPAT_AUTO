@@ -69,3 +69,6 @@
 - Doublon (memes NIF et STAT) : 409 'Un tiers utilise deja le NIF ou le STAT fourni'.
 - Le contrat multipart est strict (JSON en champ de formulaire, pieces en fichiers) : a documenter dans le contrat OpenAPI.
 - Donnee de test conservee : TEST-RECETTE-2026-11-06 (pas de route de suppression). Les registres DGI/INSTAT ne sont pas consultes.
+
+- Tiers TIE0000009442100400 : visible dans le site (type Autres), etat 1 a la creation (reponse API). Visa fait manuellement dans le site : etat VISE(E). Compte fournisseur et compte client vides apres creation et apres visa (observation, a clarifier).
+- Principe illustre : l'API cree le dossier, le visa reste une decision humaine.
