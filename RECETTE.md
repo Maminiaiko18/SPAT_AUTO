@@ -53,3 +53,6 @@
 - Connexion de test.recette (role redacteur) reussie apres reparation de adruser et codeetablissement.
 - Menus visibles : uniquement le module Capitainerie. Le compte cdev (role admin/dg) voit tous les modules : les droits dependent bien du role attribue a la creation.
 - Constat : l'API cree un compte exploitable seulement si teluser et adruser sont renseignes (valides dans LOG_PERSONNEL et DIRECTION), et le PUT ecrase les champs absents.
+
+## Utilisateurs - cycle de vie - 2026-11-06
+- Desactivation : 200 DESACTIVE. Reactivation : 200 ACTIF. Aucun champ du compte modifie en base (teluser, adruser, codeetablissement inchanges).
