@@ -56,3 +56,9 @@
 
 ## Utilisateurs - cycle de vie - 2026-11-06
 - Desactivation : 200 DESACTIVE. Reactivation : 200 ACTIF. Aucun champ du compte modifie en base (teluser, adruser, codeetablissement inchanges).
+
+## BED - controle d'etat - 2026-11-06
+- Repartition des annees par etat : etat 0 (2 BED, 0 avec annee), etat 1 (6310, 5374 avec annee), etat 11 (231, 0 avec annee).
+- PUT sur un BED engage (BRD0000001943111321) : 409 'Seul un BED cree et non engage peut etre modifie'. Relecture : BED inchange.
+- Limite : les 231 BED valides (etat 11) n'ont pas d'annee budgetaire ; l'API les rejette en 400 avant le controle d'etat, le refus d'un BED valide n'a pas pu etre observe.
+- Verification en base apres le 409 : (designation inchangee : oui).
