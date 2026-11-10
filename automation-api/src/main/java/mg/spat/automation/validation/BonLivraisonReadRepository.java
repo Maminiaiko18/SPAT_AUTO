@@ -16,8 +16,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 @ConditionalOnProperty(name = "spat.readonly.enabled", havingValue = "true")
 public class BonLivraisonReadRepository {
-    private static final String SQL = "SELECT * FROM SPAT_CAPITAINERIE.AS_BONDELIVRAISON_FILLEQTE_RES "
-            + "WHERE NUMBL = ? AND IDBONDECOMMANDEMERE = ? AND ID = ?";
+    private static final String SQL = "SELECT v.QUANTITERESTE, v.PU "
+            + "FROM SPAT_CAPITAINERIE.AS_BONDELIVRAISON_FILLEQTE_RES v "
+            + "WHERE v.NUMBL = ? AND v.IDBONDECOMMANDEMERE = ? AND v.ID = ?";
+
+    private static final String SQL_EXCLUDING_INVOICE = "SELECT "
+            + "v.QUANTITE - (NVL(v.FACTURE, 0) - NVL((SELECT SUM(ff.QUANTITE) "
+            + "FROM SPAT_CAPITAINERIE.FACTURE_FOURNISSEUR_FILLE ff "
+            + "WHERE ff.IDBLF = v.ID AND ff.IDMERE = ?), 0)) AS QUANTITERESTE, v.PU "
+            + "FROM SPAT_CAPITAINERIE.AS_BONDELIVRAISON_FILLEQTE_RES v "
+            + "WHERE v.NUMBL = ? AND v.IDBONDECOMMANDEMERE = ? AND v.ID = ?";
 
     private final JdbcTemplate jdbc;
 
@@ -25,14 +33,20 @@ public class BonLivraisonReadRepository {
         this.jdbc = jdbc;
     }
 
-    public Optional<DeliveryLine> findLine(String idBonLivraison, String idBonCommande, String idLigne) {
-        return jdbc.query(SQL, rs -> {
+    public Optional<DeliveryLine> findLine(String idBonLivraison, String idBonCommande, String idLigne,
+            String idFactureFournisseur) {
+        boolean excludeInvoice = idFactureFournisseur != null && !idFactureFournisseur.isBlank();
+        String sql = excludeInvoice ? SQL_EXCLUDING_INVOICE : SQL;
+        Object[] args = excludeInvoice
+                ? new Object[] { idFactureFournisseur, idBonLivraison, idBonCommande, idLigne }
+                : new Object[] { idBonLivraison, idBonCommande, idLigne };
+        return jdbc.query(sql, rs -> {
             if (!rs.next()) return Optional.empty();
             Map<String, Object> columns = readColumns(rs);
             return Optional.of(new DeliveryLine(
                     decimal(columns, "QUANTITERESTE", "QUANTITE_RESTE"),
                     decimal(columns, "PU", "PRIXUNITAIRE", "PRIX_UNITAIRE")));
-        }, idBonLivraison, idBonCommande, idLigne);
+        }, args);
     }
 
     private static Map<String, Object> readColumns(ResultSet rs) throws SQLException {

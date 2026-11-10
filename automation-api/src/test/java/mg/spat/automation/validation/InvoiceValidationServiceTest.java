@@ -1,6 +1,7 @@
 package mg.spat.automation.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -22,7 +23,7 @@ class InvoiceValidationServiceTest {
 
     @Test
     void acceptsLineWhenQuantityAndPriceMatchReadOnlyRecord() {
-        when(repository.findLine("BL-1", "BC-1", "BLF-1"))
+        when(repository.findLine("BL-1", "BC-1", "BLF-1", "FF-1"))
                 .thenReturn(Optional.of(new BonLivraisonReadRepository.DeliveryLine(
                         new BigDecimal("5.00"), new BigDecimal("1500.00"))));
 
@@ -37,7 +38,7 @@ class InvoiceValidationServiceTest {
 
     @Test
     void reportsExcessQuantityAndDifferentPrice() {
-        when(repository.findLine("BL-1", "BC-1", "BLF-1"))
+        when(repository.findLine("BL-1", "BC-1", "BLF-1", "FF-1"))
                 .thenReturn(Optional.of(new BonLivraisonReadRepository.DeliveryLine(
                         new BigDecimal("1"), new BigDecimal("1500"))));
 
@@ -49,18 +50,30 @@ class InvoiceValidationServiceTest {
 
     @Test
     void reportsUnknownLineAndDuplicateLine() {
-        when(repository.findLine("BL-1", "BC-1", "BLF-1")).thenReturn(Optional.empty());
+        when(repository.findLine("BL-1", "BC-1", "BLF-1", "FF-1")).thenReturn(Optional.empty());
 
-        ValidationResponse response = service.validate(new ValidationRequest("BL-1", "BC-1", java.util.List.of(
-                new Ligne("BLF-1", BigDecimal.ONE, BigDecimal.ONE),
-                new Ligne("BLF-1", BigDecimal.ONE, BigDecimal.ONE))));
+        ValidationResponse response = service.validate(new ValidationRequest("BL-1", "BC-1", "FF-1",
+                java.util.List.of(
+                        new Ligne("BLF-1", BigDecimal.ONE, BigDecimal.ONE),
+                        new Ligne("BLF-1", BigDecimal.ONE, BigDecimal.ONE))));
 
         assertThat(response.statut()).isEqualTo("A_CORRIGER");
         assertThat(response.lignes()).allSatisfy(line -> assertThat(line.valide()).isFalse());
     }
 
+    @Test
+    void passesInvoiceIdToRepository() {
+        when(repository.findLine("BL-1", "BC-1", "BLF-1", "FF-1"))
+                .thenReturn(Optional.of(new BonLivraisonReadRepository.DeliveryLine(
+                        new BigDecimal("1"), new BigDecimal("1500"))));
+
+        service.validate(request(BigDecimal.ONE, new BigDecimal("1500")));
+
+        verify(repository).findLine("BL-1", "BC-1", "BLF-1", "FF-1");
+    }
+
     private static ValidationRequest request(BigDecimal quantity, BigDecimal price) {
-        return new ValidationRequest("BL-1", "BC-1", java.util.List.of(
+        return new ValidationRequest("BL-1", "BC-1", "FF-1", java.util.List.of(
                 new Ligne("BLF-1", quantity, price)));
     }
 }

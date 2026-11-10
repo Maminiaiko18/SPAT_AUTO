@@ -30,7 +30,7 @@ public class InvoiceValidationService {
                 issues.add("La ligne est présente plusieurs fois dans la demande.");
             } else {
                 var stored = repository.findLine(request.idBonLivraison(), request.idBonCommande(),
-                        proposed.idLigneLivraison());
+                        proposed.idLigneLivraison(), request.idFactureFournisseur());
                 if (stored.isEmpty()) {
                     issues.add("Ligne introuvable pour ce bon de livraison et ce bon de commande.");
                 } else {

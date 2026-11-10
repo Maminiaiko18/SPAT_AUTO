@@ -11,6 +11,7 @@ import java.util.List;
 public record ValidationRequest(
         @NotBlank String idBonLivraison,
         @NotBlank String idBonCommande,
+        String idFactureFournisseur,
         @NotEmpty List<@Valid Ligne> lignes) {
 
     public record Ligne(
