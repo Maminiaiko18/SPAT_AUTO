@@ -13,7 +13,8 @@ import java.util.Map;
 
 /** Calls the configured n8n production webhook after a supplier invoice is saved. */
 public final class N8nInvoiceValidationClient {
-    private static final int TIMEOUT_MS = 5000;
+    private static final int CONNECT_TIMEOUT_MS = 5000;
+    private static final int READ_TIMEOUT_MS = 30000;
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private N8nInvoiceValidationClient() { }
@@ -35,8 +36,8 @@ public final class N8nInvoiceValidationClient {
         try {
             connection = (HttpURLConnection) new URL(endpoint).openConnection();
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(TIMEOUT_MS);
-            connection.setReadTimeout(TIMEOUT_MS);
+            connection.setConnectTimeout(CONNECT_TIMEOUT_MS);
+            connection.setReadTimeout(READ_TIMEOUT_MS);
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             byte[] body = MAPPER.writeValueAsBytes(payload);

@@ -29,170 +29,143 @@
                                                                                         e.setNomTable("factfourn_msum_lib_ficheB");
                                                                                         PageConsulte pc=new
                                                                                         PageConsulte(e, request, u);
-                                                                                        pc.setTitre("FICHE FACTURE
-                                                                                        FOURNISSEUR");
-                                                                                        pc.getChampByName("deviseMere").setLibelle("Devise");
-                                                                                        pc.getChampByName("idbordereau").setLibelle("BED");
-                                                                                        pc.getChampByName("numBordereau").setLibelle("Numero
-                                                                                        BED"); String
+                                                                                        pc.setTitre("FICHE FACTURE FOURNISSEUR");
+                                                                                        if(pc.getChampByName("deviseMere")!=null) pc.getChampByName("deviseMere").setLibelle("Devise");
+                                                                                        if(pc.getChampByName("idbordereau")!=null) pc.getChampByName("idbordereau").setLibelle("BED");
+                                                                                        if(pc.getChampByName("numBordereau")!=null) pc.getChampByName("numBordereau").setLibelle("Numero BED"); String
                                                                                         lien=(String)session.getValue("lien");
                                                                                         e=(FactureFournisseur)
                                                                                         pc.getBase();
-                                                                                        pc.getChampByName("idom").setVisible(false);
-                                                                                        pc.getChampByName("omlib").setVisible(false);
+                                                                                        if(pc.getChampByName("idom")!=null) pc.getChampByName("idom").setVisible(false);
+                                                                                        if(pc.getChampByName("omlib")!=null) pc.getChampByName("omlib").setVisible(false);
                                                                                         if(e.getIdom()!=null){
-                                                                                        pc.getChampByName("idom").setVisible(true);
-                                                                                        pc.getChampByName("idom").setLibelle("Ordre
-                                                                                        de mission");
-                                                                                        pc.getChampByName("idom").setLien(lien+"?but=ordre-mission/ordre-mission-fiche.jsp", "id="
+                                                                                        if(pc.getChampByName("idom")!=null) pc.getChampByName("idom").setVisible(true);
+                                                                                        if(pc.getChampByName("idom")!=null) pc.getChampByName("idom").setLibelle("Ordre de mission");
+                                                                                        if(pc.getChampByName("idom")!=null) pc.getChampByName("idom").setLien(lien+"?but=ordre-mission/ordre-mission-fiche.jsp", "id="
                                                                                         ); }
-                                                                                        pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id="
+                                                                                        if(pc.getChampByName("idbordereau")!=null) pc.getChampByName("idbordereau").setLien(lien+"?but=ded/bordereauxFF-fiche.jsp", "id="
                                                                                         );
                                                                                         //pc.getChampByName("iduser").setVisible(false);
                                                                                         //pc.getChampByName("type").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("tiers").setVisible(false);
+                                                                                        if(pc.getChampByName("tiers")!=null) pc.getChampByName("tiers").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("etatlib").setVisible(false);
-                                                                                        pc.getChampByName("Idcategorie").setVisible(false);
-                                                                                        pc.getChampByName("IdProvision").setVisible(true);
+                                                                                        if(pc.getChampByName("etatlib")!=null) pc.getChampByName("etatlib").setVisible(false);
+                                                                                        if(pc.getChampByName("Idcategorie")!=null) pc.getChampByName("Idcategorie").setVisible(false);
+                                                                                        if(pc.getChampByName("IdProvision")!=null) pc.getChampByName("IdProvision").setVisible(true);
                                                                                         //pc.getChampByName("projet").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("idProvisionlib").setVisible(false);
+                                                                                        if(pc.getChampByName("idProvisionlib")!=null) pc.getChampByName("idProvisionlib").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("montanttva").setVisible(false);
+                                                                                        if(pc.getChampByName("montanttva")!=null) pc.getChampByName("montanttva").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("estMictsl").setVisible(false);
+                                                                                        if(pc.getChampByName("estMictsl")!=null) pc.getChampByName("estMictsl").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("estDDPMICTSL").setVisible(false);
+                                                                                        if(pc.getChampByName("estDDPMICTSL")!=null) pc.getChampByName("estDDPMICTSL").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("escale").setVisible(false);
+                                                                                        if(pc.getChampByName("escale")!=null) pc.getChampByName("escale").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("idprevision").setVisible(false);
-                                                                                        pc.getChampByName("idProvision").setVisible(false);
+                                                                                        if(pc.getChampByName("idprevision")!=null) pc.getChampByName("idprevision").setVisible(false);
+                                                                                        if(pc.getChampByName("idProvision")!=null) pc.getChampByName("idProvision").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("nature").setVisible(false);
+                                                                                        if(pc.getChampByName("nature")!=null) pc.getChampByName("nature").setVisible(false);
                                                                                         //
-                                                                                        pc.getChampByName("code_etablissement").setVisible(false);
-                                                                                        pc.getChampByName("tierslib").setLibelle("Tiers");
+                                                                                        if(pc.getChampByName("code_etablissement")!=null) pc.getChampByName("code_etablissement").setVisible(false);
+                                                                                        if(pc.getChampByName("tierslib")!=null) pc.getChampByName("tierslib").setLibelle("Tiers");
                                                                                         //pc.getChampByName("naturelib").setLibelle("Nature");
                                                                                         //
-                                                                                        pc.getChampByName("numeroop").setLibelle("N°
-                                                                                        facture");
-                                                                                        pc.getChampByName("daty").setLibelle("Date");
-                                                                                        pc.getChampByName("montantHTSansRemise").setLibelle("Montant
-                                                                                        HT Sans Remise");
-                                                                                        pc.getChampByName("anneebudgetaire").setLibelle("Ann&eacute;e
-                                                                                        budg&eacute;taire");
-                                                                                        pc.getChampByName("montant").setLibelle("Montant
-                                                                                        HT");
-                                                                                        pc.getChampByName("montanttva").setLibelle("Montant
-                                                                                        TVA");
-                                                                                        pc.getChampByName("montantavoir").setLibelle("Montant
-                                                                                        Avoir");
-                                                                                        pc.getChampByName("montantttcvrai").setLibelle("Montant
-                                                                                        TTC");
-                                                                                        pc.getChampByName("montantttc").setLibelle("Net
-                                                                                        à payer");
-                                                                                        pc.getChampByName("date_echeance").setLibelle("Date
-                                                                                        echeance");
-                                                                                        pc.getChampByName("montantpaye").setLibelle("Montant
-                                                                                        payé");
-                                                                                        pc.getChampByName("montantreste").setLibelle("Reste
-                                                                                        à payer");
-                                                                                        pc.getChampByName("typelib").setLibelle("Type");
-                                                                                        pc.getChampByName("idProvisionlib").setLibelle("Bon
-                                                                                        Provisoire");
-                                                                                        pc.getChampByName("projetlib").setLibelle("Projet");
-                                                                                        pc.getChampByName("dateRegul").setLibelle("Date
-                                                                                        de régul"); //
-                                                                                        pc.getChampByName("numeroop").setVisible(false);
-                                                                                        pc.getChampByName("code_etablissementlib").setLibelle("Code
-                                                                                        direction");
+                                                                                        if(pc.getChampByName("numeroop")!=null) pc.getChampByName("numeroop").setLibelle("N°facture");
+                                                                                        if(pc.getChampByName("daty")!=null) pc.getChampByName("daty").setLibelle("Date");
+                                                                                        if(pc.getChampByName("montantHTSansRemise")!=null) pc.getChampByName("montantHTSansRemise").setLibelle("Montant HT Sans Remise");
+                                                                                        if(pc.getChampByName("anneebudgetaire")!=null) pc.getChampByName("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
+                                                                                        if(pc.getChampByName("montant")!=null) pc.getChampByName("montant").setLibelle("Montant HT");
+                                                                                        if(pc.getChampByName("montanttva")!=null) pc.getChampByName("montanttva").setLibelle("Montant TVA");
+                                                                                        if(pc.getChampByName("montantavoir")!=null) pc.getChampByName("montantavoir").setLibelle("Montant Avoir");
+                                                                                        if(pc.getChampByName("montantttcvrai")!=null) pc.getChampByName("montantttcvrai").setLibelle("Montant TTC");
+                                                                                        if(pc.getChampByName("montantttc")!=null) pc.getChampByName("montantttc").setLibelle("Net à payer");
+                                                                                        if(pc.getChampByName("date_echeance")!=null) pc.getChampByName("date_echeance").setLibelle("Date echeance");
+                                                                                        if(pc.getChampByName("montantpaye")!=null) pc.getChampByName("montantpaye").setLibelle("Montant payé");
+                                                                                        if(pc.getChampByName("montantreste")!=null) pc.getChampByName("montantreste").setLibelle("Reste à payer");
+                                                                                        if(pc.getChampByName("typelib")!=null) pc.getChampByName("typelib").setLibelle("Type");
+                                                                                        if(pc.getChampByName("idProvisionlib")!=null) pc.getChampByName("idProvisionlib").setLibelle("Bon Provisoire");
+                                                                                        if(pc.getChampByName("projetlib")!=null) pc.getChampByName("projetlib").setLibelle("Projet");
+                                                                                        if(pc.getChampByName("dateRegul")!=null) pc.getChampByName("dateRegul").setLibelle("Date de régul"); //
+                                                                                        if(pc.getChampByName("numeroop")!=null) pc.getChampByName("numeroop").setVisible(false);
+                                                                                        if(pc.getChampByName("code_etablissementlib")!=null) pc.getChampByName("code_etablissementlib").setLibelle("Code direction");
                                                                                         //pc.getChampByName("escale").setLibelle("Escale");
                                                                                         //pc.getChampByName("codeProvision").setLibelle("Provision");
-                                                                                        pc.getChampByName("exercice").setLibelle("Exercice");
-                                                                                        pc.getChampByName("numeroop").setLibelle("N°
-                                                                                        facture"); String[]
+                                                                                        if(pc.getChampByName("exercice")!=null) pc.getChampByName("exercice").setLibelle("Exercice");
+                                                                                        if(pc.getChampByName("numeroop")!=null) pc.getChampByName("numeroop").setLibelle("N°facture"); String[]
                                                                                         attribus={"iduser","type","tiers","etatlib","Idcategorie","IdProvision","projet","estMictsl","estDDPMICTSL","escale","idprevision","idProvision","nature","code_etablissement","tierslib","naturelib","numeroop","daty","montantHTSansRemise","montant","montanttva","montantavoir","montantttcvrai","montantttc","date_echeance","montantpaye","montantreste","typelib","idProvisionlib","dateRegul","code_etablissementlib","escale","codeProvision","exercice"};
                                                                                         // pc.setOrdre(attribus);
-                                                                                        pc.getChampByName("code").setLibelle("Numero
-                                                                                        Compta");
-                                                                                        pc.getChampByName("IdProvision").setLien((String)
+                                                                                        if(pc.getChampByName("code")!=null) pc.getChampByName("code").setLibelle("Numero Compta");
+                                                                                        if(pc.getChampByName("IdProvision")!=null) pc.getChampByName("IdProvision").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id="
                                                                                         + e.getIdProvision(), "" );
-                                                                                        pc.getChampByName("idProvisionlib").setLien((String)
+                                                                                        if(pc.getChampByName("idProvisionlib")!=null) pc.getChampByName("idProvisionlib").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=facture/facture-fournisseur-fiche-vaovao.jsp&id="
                                                                                         + e.getIdProvision(), "" );
-                                                                                        pc.getChampByName("modepaiement").setVisible(false);
-                                                                                        pc.getChampByName("modepaiementlib").setVisible(false);
-                                                                                        pc.getChampByName("prevalidation").setVisible(false);
-                                                                                        pc.getChampByName("prevalidationlib").setVisible(false);
+                                                                                        if(pc.getChampByName("modepaiement")!=null) pc.getChampByName("modepaiement").setVisible(false);
+                                                                                        if(pc.getChampByName("modepaiementlib")!=null) pc.getChampByName("modepaiementlib").setVisible(false);
+                                                                                        if(pc.getChampByName("prevalidation")!=null) pc.getChampByName("prevalidation").setVisible(false);
+                                                                                        if(pc.getChampByName("prevalidationlib")!=null) pc.getChampByName("prevalidationlib").setVisible(false);
                                                                                         boolean estContrat=false;
                                                                                         if(e.isFacturecontrat(null)==true){
                                                                                         estContrat=true;
-                                                                                        pc.getChampByName("prevalidationlib").setVisible(true);
-                                                                                        pc.getChampByName("prevalidationlib").setLibelle("Prevalidation");
+                                                                                        if(pc.getChampByName("prevalidationlib")!=null) pc.getChampByName("prevalidationlib").setVisible(true);
+                                                                                        if(pc.getChampByName("prevalidationlib")!=null) pc.getChampByName("prevalidationlib").setLibelle("Prevalidation");
                                                                                         } String categorie="" ; if
                                                                                         (e.getIdcategorie() !=null) {
                                                                                         categorie=e.getIdcategorie(); }
                                                                                         if
                                                                                         (categorie.equals(Constante.getCategorieFFBP()))
-                                                                                        { pc.setTitre("Fiche Bon
-                                                                                        provisoire");
-                                                                                        pc.getChampByName("num").setVisible(true);
-                                                                                        pc.getChampByName("num").setLibelle("Numero
-                                                                                        BP");
-                                                                                        pc.getChampByName("modepaiementlib").setVisible(true);
-                                                                                        pc.getChampByName("modepaiementlib").setLibelle("Mode
-                                                                                        de paiement"); } else {
-                                                                                        pc.setTitre("Fiche Facture
-                                                                                        Fournisseur");
-                                                                                        pc.getChampByName("num").setVisible(false);
+                                                                                        { pc.setTitre("Fiche Bon provisoire");
+                                                                                        if(pc.getChampByName("num")!=null) pc.getChampByName("num").setVisible(true);
+                                                                                        if(pc.getChampByName("num")!=null) pc.getChampByName("num").setLibelle("Numero BP");
+                                                                                        if(pc.getChampByName("modepaiementlib")!=null) pc.getChampByName("modepaiementlib").setVisible(true);
+                                                                                        if(pc.getChampByName("modepaiementlib")!=null) pc.getChampByName("modepaiementlib").setLibelle("Mode de paiement"); } else {
+                                                                                        pc.setTitre("Fiche Facture Fournisseur");
+                                                                                        if(pc.getChampByName("num")!=null) pc.getChampByName("num").setVisible(false);
                                                                                         }
-                                                                                        pc.getChampByName("categorielib").setLibelle("Categorie");
+                                                                                        if(pc.getChampByName("categorielib")!=null) pc.getChampByName("categorielib").setLibelle("Categorie");
                                                                                         //pc.getChampByName("codePrestation").setVisible(false);
                                                                                         //pc.getChampByName("codePrestationlib").setLibelle("Code
-                                                                                        Prestation");
+                                                                                        // Prestation");
                                                                                         //pc.getChampByName("codePrestationlib").setVisible(false);
                                                                                         //pc.getChampByName("deviseMere").setLibelle("Devise");
-                                                                                        pc.getChampByName("designation").setLibelle("Note
-                                                                                        explicative");
-                                                                                        pc.getChampByName("Idbc").setLibelle("bon
-                                                                                        commande");
-                                                                                        pc.getChampByName("IdBL").setLibelle("bon
-                                                                                        livraison");
-                                                                                        System.out.println("
-                                                                                        EngagementLIB==="+pc.getChampByName("
-                                                                                        idEngagementlib").getValeur());
+                                                                                        if(pc.getChampByName("designation")!=null) pc.getChampByName("designation").setLibelle("Note explicative");
+                                                                                        if(pc.getChampByName("Idbc")!=null) pc.getChampByName("Idbc").setLibelle("bon commande");
+                                                                                        if(pc.getChampByName("IdBL")!=null) pc.getChampByName("IdBL").setLibelle("bon livraison");
                                                                                         //pc.getChampByName("idEngagementlib").setValeur("Andrana&eacute;");
+                                                                                        if(pc.getChampByName("idEngagementlib")!=null) {
                                                                                         pc.getChampByName("idEngagementlib").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=depense/engagement-fiche.jsp&id="
                                                                                         + e.getIdengagement(), "" );
                                                                                         pc.getChampByName("idEngagementlib").setLibelle("Engagement");
                                                                                         pc.getChampByName("idEngagementlib").setVisible(false);
-                                                                                        pc.getChampByName("idbc").setLien((String)
+                                                                                        }
+                                                                                        if(pc.getChampByName("idbc")!=null) pc.getChampByName("idbc").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=stock/bc/asBonDeCommande-fiche.jsp&id="
                                                                                         + e.getIdbc(), "" );
-                                                                                        pc.getChampByName("idbl").setLien((String)
+                                                                                        if(pc.getChampByName("idbl")!=null) pc.getChampByName("idbl").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=stock/bl/bondelivraison-fiche.jsp&id="
                                                                                         + e.getIdBL(), "" );
-                                                                                        pc.getChampByName("idEngagementlib").setVisible(true);
-                                                                                        pc.getChampByName("idEngagement").setVisible(false);
-                                                                                        pc.getChampByName("tiers").setVisible(false);
-                                                                                        pc.getChampByName("code_etablissement").setVisible(false);
-                                                                                        pc.getChampByName("projet").setVisible(false);
+                                                                                        if(pc.getChampByName("idEngagementlib")!=null) pc.getChampByName("idEngagementlib").setVisible(true);
+                                                                                        if(pc.getChampByName("idEngagement")!=null) pc.getChampByName("idEngagement").setVisible(false);
+                                                                                        if(pc.getChampByName("tiers")!=null) pc.getChampByName("tiers").setVisible(false);
+                                                                                        if(pc.getChampByName("code_etablissement")!=null) pc.getChampByName("code_etablissement").setVisible(false);
+                                                                                        if(pc.getChampByName("projet")!=null) pc.getChampByName("projet").setVisible(false);
                                                                                         // //Si categorieFC=proforma
-                                                                                        alors “Fiche Facture Proforma”
+                                                                                        // alors “Fiche Facture Proforma”
                                                                                         // //Si categorieFC=provision
-                                                                                        alors “Fiche Facture de
-                                                                                        provision” //
-                                                                                        pc.getChampByName("escale").setLien((String)
+                                                                                        // alors “Fiche Facture de
+                                                                                        // provision” //
+                                                                                        if(pc.getChampByName("escale")!=null) pc.getChampByName("escale").setLien((String)
                                                                                         session.getValue("lien")
                                                                                         + "?but=capitainerie/quais/quais-prevision-fiche.jsp&id="
                                                                                         + e.getIdprevision(), "escale="
@@ -208,11 +181,8 @@
                                                                                         + modifPage + "&id=" +
                                                                                         request.getParameter("id");
                                                                                         //if(e.getEtat() <
-                                                                                        ConstanteEtat.getEtatValider())
-                                                                                        out.println("<script
-                                                                                        language='JavaScript'>
-                                                                                        document.location.replace('"+redirect+"');
-                                                                                        </script>");
+                                                                                        // ConstanteEtat.getEtatValider())
+                                                                                        if (session.getAttribute("n8nInvoiceValidation:" + e.getId()) == null) out.println("<script language='JavaScript'>document.location.replace('"+redirect+"');</script>");
 
                                                                                         AttacherFichier[] fichiers =
                                                                                         UploadService.getUploadFile(request.getParameter("id"));
@@ -241,7 +211,7 @@
                                                                                                 map.put("liste-op_1",
                                                                                                 "");
                                                                                                 // map.put("activite",
-                                                                                                "");
+                                                                                                // "");
                                                                                                 //
                                                                                                 map.put("facturesdefinitives",
                                                                                                 "");
@@ -262,19 +232,19 @@
                                                                                                 ".jsp";
 
                                                                                                 //String vue =
-                                                                                                e.getId().startsWith(Constante.fcPrefix)
-                                                                                                ?
-                                                                                                "ANALYSEGLOBALEFACTURE_VAOVAO"
-                                                                                                :
-                                                                                                "ANALYSEGLOBALEANTSIKA";
+                                                                                                // e.getId().startsWith(Constante.fcPrefix)
+                                                                                                // ?
+                                                                                                // "ANALYSEGLOBALEFACTURE_VAOVAO"
+                                                                                                // :
+                                                                                                // "ANALYSEGLOBALEANTSIKA";
                                                                                                 // String vue =
-                                                                                                e.getRemarque() != null
-                                                                                                &&
-                                                                                                e.getRemarque().startsWith("--")
-                                                                                                ?
-                                                                                                "ANALYSEGLOBALEFACTURE_VAOVAO"
-                                                                                                :
-                                                                                                "ANALYSEGLOBALEANTSIKA";
+                                                                                                // e.getRemarque() != null
+                                                                                                // &&
+                                                                                                // e.getRemarque().startsWith("--")
+                                                                                                // ?
+                                                                                                // "ANALYSEGLOBALEFACTURE_VAOVAO"
+                                                                                                // :
+                                                                                                // "ANALYSEGLOBALEANTSIKA";
                                                                                                 %>
 
                                                                                                 <style type="text/css">
@@ -332,8 +302,7 @@
                                                                                                 <div
                                                                                                     class="content-wrapper">
                                                                                                     <form
-                                                                                                        action="<%=(String) session.getValue("
-                                                                                                        lien")%>
+                                                                                                        action="<%=(String) session.getValue("lien")%>
                                                                                                         ?but=apresMdp.jsp"
                                                                                                         method="post"
                                                                                                         id="form-avoir-interne">
@@ -439,25 +408,20 @@
                                                                                                                                 validationJson
                                                                                                                                 =
                                                                                                                                 validationJson.replace("&",
-                                                                                                                                "&amp;").replace("
-                                                                                                                                <", "&lt;"
-                                                                                                                                    ).replace(">
-                                                                                                                                    ",
+                                                                                                                                "&amp;").replace("<", "&lt;"
+                                                                                                                                    ).replace(">",
                                                                                                                                     "&gt;");
                                                                                                                                     String
                                                                                                                                     validationStatusHtml
                                                                                                                                     =
                                                                                                                                     validationStatus.replace("&",
-                                                                                                                                    "&amp;").replace("
-                                                                                                                                    <", "&lt;"
-                                                                                                                                        ).replace(">
-                                                                                                                                        ",
+                                                                                                                                    "&amp;").replace("<", "&lt;"
+                                                                                                                                        ).replace(">",
                                                                                                                                         "&gt;").replace("\"",
                                                                                                                                         "&quot;");
 
                                                                                                                                         %>
-                                                                                                                                        <div class="alert <%=validationOk ? "
-                                                                                                                                            alert-success"
+                                                                                                                                        <div class="alert <%=validationOk ? "alert-success"
                                                                                                                                             : "alert-warning"
                                                                                                                                             %>
                                                                                                                                             "
@@ -488,8 +452,7 @@
                                                                                                                     class="box-footer">
                                                                                                                     <p>
                                                                                                                         <a class="btn btn-success"
-                                                                                                                            href="<%=(String) session.getValue("
-                                                                                                                            lien")
+                                                                                                                            href="<%=(String) session.getValue("lien")
                                                                                                                             + "?but=apresTarif.jsp&acte=valider&id="
                                                                                                                             +
                                                                                                                             request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur"
@@ -499,8 +462,7 @@
                                                                                                                             {
                                                                                                                             %>
                                                                                                                             <a class="btn btn-danger"
-                                                                                                                                href="<%=(String) session.getValue("
-                                                                                                                                lien")
+                                                                                                                                href="<%=(String) session.getValue("lien")
                                                                                                                                 + "?but=apresTarif.jsp&acte=annulerVisa&id="
                                                                                                                                 +
                                                                                                                                 request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur"
@@ -510,8 +472,7 @@
                                                                                                                             <% }
                                                                                                                                 %>
                                                                                                                                 <a class="btn btn-primary"
-                                                                                                                                    href="<%=(String) session.getValue("
-                                                                                                                                    lien")
+                                                                                                                                    href="<%=(String) session.getValue("lien")
                                                                                                                                     + "?but=apresTarif.jsp&id="
                                                                                                                                     +
                                                                                                                                     e.getId()%>&acte=dupliquer&bute=
@@ -528,8 +489,7 @@
                                                                                                                                     {
                                                                                                                                     %>
                                                                                                                                     <a class="btn btn-info"
-                                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                                        lien")
+                                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                                         + "?but=apresFactureF.jsp&acte=prevaliderFF&id="
                                                                                                                                         +
                                                                                                                                         request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur"
@@ -554,8 +514,7 @@
                                                                                                                                                 {
                                                                                                                                                 %>
                                                                                                                                                 <a class="btn btn-success pull-right"
-                                                                                                                                                    href="<%=(String) session.getValue("
-                                                                                                                                                    lien")
+                                                                                                                                                    href="<%=(String) session.getValue("lien")
                                                                                                                                                     + "?but=treso/depense-saisie.jsp&idFacture="
                                                                                                                                                     +
                                                                                                                                                     id+"&mode=1"%>"
@@ -563,8 +522,7 @@
                                                                                                                                                     10px">Sortie
                                                                                                                                                     banque</a>
                                                                                                                                                 <a class="btn btn-success pull-right"
-                                                                                                                                                    href="<%=(String) session.getValue("
-                                                                                                                                                    lien")
+                                                                                                                                                    href="<%=(String) session.getValue("lien")
                                                                                                                                                     + "?but=treso/depense-saisie.jsp&idFacture="
                                                                                                                                                     +
                                                                                                                                                     id+"&mode=2"%>"
@@ -574,8 +532,7 @@
                                                                                                                                                 <% }
                                                                                                                                                     %>
                                                                                                                                                     <a class="btn btn-success pull-right"
-                                                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                                                        lien")
+                                                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                                                         + "?but=ded/ordonnerpayement-saisie.jsp&ded_id="
                                                                                                                                                         +
                                                                                                                                                         id%>"
@@ -591,8 +548,7 @@
                                                                                                                             {
                                                                                                                             %>
                                                                                                                             <a class="btn btn-success"
-                                                                                                                                href="<%=(String) session.getValue("
-                                                                                                                                lien")
+                                                                                                                                href="<%=(String) session.getValue("lien")
                                                                                                                                 + "?but=apresFacture.jsp&acte=editerBED&id="
                                                                                                                                 +
                                                                                                                                 request.getParameter("id")+"&bute=ded/bordereauxFF-saisie.jsp"%>"
@@ -606,8 +562,7 @@
                                                                                                                         <p>
 
                                                                                                                     <a class="btn"
-                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                        lien")
+                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                         + "?but=avoir/avoirFF-saisie.jsp&idfacture="
                                                                                                                         +
                                                                                                                         e.getId()%>&type=2"
@@ -619,8 +574,7 @@
                                                                                                                         white!important;">Avoir</a>
                                                                                                                     <a class="btn"
                                                                                                                         type="button"
-                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                        lien")
+                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                         + "?but=apresFactureF.jsp&acte=attribuerCode&id="
                                                                                                                         +
                                                                                                                         e.getId()%>"
@@ -633,8 +587,7 @@
                                                                                                                         >Attribuer
                                                                                                                         Codes</a>
                                                                                                                     <a class="btn btn-success pull-right"
-                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                        lien")
+                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                         + "?but=additif/additif-saisie.jsp&idfacture="
                                                                                                                         +
                                                                                                                         e.getId()%>"
@@ -643,8 +596,7 @@
                                                                                                                     <hr>
                                                                                                                     <p>
                                                                                                                         <a class="btn btn-default"
-                                                                                                                            href="<%=(String) session.getValue("
-                                                                                                                            lien")
+                                                                                                                            href="<%=(String) session.getValue("lien")
                                                                                                                             + "?but=pageupload.jsp&id="
                                                                                                                             +
                                                                                                                             e.getId()
@@ -670,8 +622,7 @@
                                                                                                                     </hr>
                                                                                                                     <p>
                                                                                                                         <a class="btn btn-warning"
-                                                                                                                            href="<%=(String) session.getValue("
-                                                                                                                            lien")
+                                                                                                                            href="<%=(String) session.getValue("lien")
                                                                                                                             + "?but="
                                                                                                                             +
                                                                                                                             modifPage
@@ -681,8 +632,7 @@
                                                                                                                             style="margin-right:
                                                                                                                             10px">Modifier</a>
                                                                                                                         <a class="btn btn-warning"
-                                                                                                                            href="<%=(String) session.getValue("
-                                                                                                                            lien")
+                                                                                                                            href="<%=(String) session.getValue("lien")
                                                                                                                             + "?but=facture/facture-fournisseur-modif-simple.jsp&id="
                                                                                                                             +
                                                                                                                             e.getId()%>"
@@ -700,8 +650,7 @@
                                                                                                                         {%>
                                                                                                                         <p>
                                                                                                                             <a class="btn btn-primary"
-                                                                                                                                href="<%=(String) session.getValue("
-                                                                                                                                lien")
+                                                                                                                                href="<%=(String) session.getValue("lien")
                                                                                                                                 + "?but=apresFacture.jsp&id="
                                                                                                                                 +
                                                                                                                                 e.getId()%>&acte=genererDefinitiveFF&bute=
@@ -730,8 +679,7 @@
                                                                                                                             {
                                                                                                                             %>
                                                                                                                             <a class="btn btn-warning"
-                                                                                                                                href="<%=(String) session.getValue("
-                                                                                                                                lien")
+                                                                                                                                href="<%=(String) session.getValue("lien")
                                                                                                                                 + "?but=facture/regulFFBP-saisie.jsp&id="
                                                                                                                                 +
                                                                                                                                 e.getId()%>"
@@ -750,8 +698,7 @@
                                                                                                                                     e.getIdcategorie().equals(Constante.idCategorieFCDefinitive))
                                                                                                                                     {%>
                                                                                                                                     <a class="btn btn-primary pull-right"
-                                                                                                                                        href="<%=(String) session.getValue("
-                                                                                                                                        lien")
+                                                                                                                                        href="<%=(String) session.getValue("lien")
                                                                                                                                         + "?but=apresFacture.jsp&id="
                                                                                                                                         +
                                                                                                                                         e.getId()%>&acte=genererProvision&bute=
@@ -776,10 +723,10 @@
                                                                                                         !=null &&
                                                                                                         e.getIdcategorie().equals(Constante.getCategorieFFBP()))
                                                                                                         { //double
-                                                                                                        montant=0;
+                                                                                                        // montant=0;
                                                                                                         //if(etatProv.getMontantreste()
-                                                                                                        < 0)
-                                                                                                        montant=-etatProv.getMontantreste();
+                                                                                                        // < 0)
+                                                                                                        // montant=-etatProv.getMontantreste();
                                                                                                         FactureFData
                                                                                                         factData=new
                                                                                                         FactureFData();
@@ -812,8 +759,7 @@
                                                                                                                                     <td
                                                                                                                                         align="center">
                                                                                                                                         <a class="btn btn-primary"
-                                                                                                                                            href="<%=(String) session.getValue("
-                                                                                                                                            lien")%>?but=avoir/avoirFF-saisie.jsp&idfacture=
+                                                                                                                                            href="<%=(String) session.getValue("lien")%>?but=avoir/avoirFF-saisie.jsp&idfacture=
                                                                                                                                             <%=e.getId()%>
                                                                                                                                                 &type=2"
                                                                                                                                                 <%=factData.isDisabled()
@@ -842,67 +788,57 @@
                                                                                                                         class="nav-tabs-custom">
                                                                                                                         <ul
                                                                                                                             class="nav nav-tabs nav-center">
-                                                                                                                            <li class="<%= map.get("
-                                                                                                                                facture-fournisseur-fille")%>
+                                                                                                                            <li class="<%= map.get("facture-fournisseur-fille")%>
                                                                                                                                 "><a
                                                                                                                                     href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facture-fournisseur-fille&idmere=<%=e.getId()%>">D&eacute;tails
                                                                                                                                     facture
                                                                                                                                     fournisseur</a>
                                                                                                                             </li>
-                                                                                                                            <li class="<%= map.get("
-                                                                                                                                avoirFF-liste")%>
+                                                                                                                            <li class="<%= map.get("avoirFF-liste")%>
                                                                                                                                 "><a
                                                                                                                                     href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=avoirFF-liste">Facture
                                                                                                                                     avoir</a>
                                                                                                                             </li>
-                                                                                                                            <li class="<%= map.get("
-                                                                                                                                additif-liste")%>
+                                                                                                                            <li class="<%= map.get("additif-liste")%>
                                                                                                                                 "><a
                                                                                                                                     href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfacture=<%=e.getId()%>&tab=additif-liste">Additif</a>
                                                                                                                             </li>
                                                                                                                             <% if(!u.getUser().getIdrole().equals(Constante.roleDepense)){
                                                                                                                                 %>
-                                                                                                                                <li class="<%= map.get("
-                                                                                                                                    paiementFF")%>
+                                                                                                                                <li class="<%= map.get("paiementFF")%>
                                                                                                                                     "><a
                                                                                                                                         href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&idfact=<%=e.getId()%>&tab=paiementFF">Paiement</a>
                                                                                                                                 </li>
-                                                                                                                                <li class="<%= map.get("
-                                                                                                                                    liste-op_1")%>
+                                                                                                                                <li class="<%= map.get("liste-op_1")%>
                                                                                                                                     "><a
                                                                                                                                         href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=liste-op_1">Liste
                                                                                                                                         Op</a>
                                                                                                                                 </li>
                                                                                                                                 <% }
                                                                                                                                     %>
-                                                                                                                                    <li class="<%= map.get("
-                                                                                                                                        engagement")%>
+                                                                                                                                    <li class="<%= map.get("engagement")%>
                                                                                                                                         "><a
                                                                                                                                             href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=engagement&&idfacturefournisseur=<%=e.getId()%>">Engagement</a>
                                                                                                                                     </li>
                                                                                                                                     <% if
                                                                                                                                         (e.getIdcategorie().equals(Constante.getCategorieFFBP()))
                                                                                                                                         {%>
-                                                                                                                                        <li class="<%= map.get("
-                                                                                                                                            facturesfdefinitives")%>
+                                                                                                                                        <li class="<%= map.get("facturesfdefinitives")%>
                                                                                                                                             "><a
                                                                                                                                                 href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=facturesfdefinitives">Factures
                                                                                                                                                 d&eacute;finitives</a>
                                                                                                                                         </li>
-                                                                                                                                        <li class="<%= map.get("
-                                                                                                                                            regularisationFF")%>
+                                                                                                                                        <li class="<%= map.get("regularisationFF")%>
                                                                                                                                             "><a
                                                                                                                                                 href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=regularisationFF&idProvision=<%=e.getId()%>">Régularisation</a>
                                                                                                                                         </li>
-                                                                                                                                        <li class="<%= map.get("
-                                                                                                                                            etatprovision")%>
+                                                                                                                                        <li class="<%= map.get("etatprovision")%>
                                                                                                                                             "><a
                                                                                                                                                 href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=etatprovision">Etat
                                                                                                                                                 de
                                                                                                                                                 provision</a>
                                                                                                                                         </li>
-                                                                                                                                        <li class="<%= map.get("
-                                                                                                                                            liste-op_1")%>
+                                                                                                                                        <li class="<%= map.get("liste-op_1")%>
                                                                                                                                             "><a
                                                                                                                                                 href="module.jsp?but=<%=bute%>&id=<%=e.getId()%>&tab=liste-op_1">Liste
                                                                                                                                                 Op</a>
@@ -1022,8 +958,7 @@
                                                                                                                                                 </td>
                                                                                                                                                 <td><a href="#"
                                                                                                                                                         class="btn btn-primary"
-                                                                                                                                                        onclick="javascript:pagePopUp('<%=cdn + dossier + "
-                                                                                                                                                        /"
+                                                                                                                                                        onclick="javascript:pagePopUp('<%=cdn + dossier + "/"
                                                                                                                                                         +
                                                                                                                                                         fichier.getChemin()%>')">Voir</a>
                                                                                                                                                 </td>
