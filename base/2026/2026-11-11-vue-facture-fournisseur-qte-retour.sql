@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW FACTURE_FOURNISSEUR_QTE AS
+select idblf, cast(sum(QUANTITE) as NUMBER(10, 2)) as quantite
+from FACTURE_FOURNISSEUR_FILLE
+group by idblf;
