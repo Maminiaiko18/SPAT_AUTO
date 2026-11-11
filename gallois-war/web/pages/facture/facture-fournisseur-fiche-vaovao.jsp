@@ -471,7 +471,10 @@
                                                                                                                                 Visa</a>
                                                                                                                             <% }
                                                                                                                                 %>
-                                                                                                                                <a class="btn btn-primary"
+                                                                                                                                <% if (e.getEtat() == ConstanteEtat.getEtatCreer()) { %>
+<a class="btn btn-danger" href="<%=(String) session.getValue("lien") + "?but=apresTarif.jsp&acte=annuler&id=" + request.getParameter("id")%>&bute=facture/facture-fournisseur-fiche-vaovao.jsp&classe=facture.FactureFournisseur" onclick="return confirm('Annuler cette facture ?')" style="margin-right: 10px">Annuler</a>
+<% } %>
+<a class="btn btn-primary"
                                                                                                                                     href="<%=(String) session.getValue("lien")
                                                                                                                                     + "?but=apresTarif.jsp&id="
                                                                                                                                     +

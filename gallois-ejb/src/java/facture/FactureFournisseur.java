@@ -1643,6 +1643,35 @@ public class FactureFournisseur extends FactureClient {
     }
 
     @Override
+    public void controleAnnuler(Connection c) throws Exception {
+        if (this.getEtat() >= utilitaire.ConstanteEtat.getEtatValider()) {
+            throw new Exception("Seule une facture a l'etat cree peut etre annulee");
+        }
+        Object[] paiements = getPaiementFacture(c);
+        if (paiements != null && paiements.length > 0) {
+            throw new Exception("Paiement existant");
+        }
+        FactureClient provision = getProvision(null, c);
+        if (provision != null) {
+            throw new Exception("Est liee a une provision");
+        }
+        if (c != null) {
+            java.sql.PreparedStatement st = c.prepareStatement("select count(*) from facture_fournisseur_mere where idprovision = ? and etat <> 0");
+            try {
+                st.setString(1, this.getId());
+                java.sql.ResultSet rs = st.executeQuery();
+                try {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        throw new Exception("Est deja liee a une facture definitive");
+                    }
+                } finally {
+                    rs.close();
+                }
+            } finally {
+                st.close();
+            }
+        }
+    }
     public void controleAnnulerVisa(Connection c) throws Exception {
         c = null;
 
