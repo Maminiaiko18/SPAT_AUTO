@@ -5,6 +5,7 @@
 --%>
 <%@page import="facture.PaiementFacture"%>
 <%@page import="mg.spat.automation.N8nInvoiceValidationService"%>
+<%@page import="mg.spat.automation.N8nDaseValidationService"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -76,6 +77,14 @@
                 val = temp.toString();
                 idmere = o.getTuppleID();
                 N8nInvoiceValidationService.validateAfterSave(classe, classefille, cfille, idmere, session);
+                if (classe != null && classefille != null
+                        && classe.compareToIgnoreCase("mg.spat.DemandeAchatMere") == 0
+                        && classefille.compareToIgnoreCase("mg.spat.DemandeAchatFille") == 0) {
+                    try {
+                        N8nDaseValidationService.validateAfterSave(classe, classefille, cfille, idmere, session);
+                    } catch (Exception daseValidationException) {
+                    }
+                }
             }
             response.getWriter().print("success_"+idmere);
         }

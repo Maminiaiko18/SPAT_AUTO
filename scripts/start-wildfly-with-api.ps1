@@ -39,7 +39,8 @@ if (
     $configuration.Tiers.UserName -ne 'SPATERP_API_TOKEN' -or
     $configuration.Utilisateurs.UserName -ne 'SPATERP_USER_API_TOKEN' -or
     $configuration.Bed.UserName -ne 'SPATERP_BED_API_TOKEN' -or
-    $configuration.Dase.UserName -ne 'SPATERP_DASE_API_TOKEN'
+    $configuration.Dase.UserName -ne 'SPATERP_DASE_API_TOKEN' -or
+    $configuration.N8nDase.UserName -ne 'SPATERP_N8N_DASE_WEBHOOK_TOKEN'
 ) {
     throw 'Le fichier local ne contient pas les identifiants API attendus.'
 }
@@ -52,6 +53,7 @@ $env:SPATERP_BED_API_REFUSER = $configuration.Refuser
 $env:SPATERP_BED_API_TOKEN = $configuration.Bed.GetNetworkCredential().Password
 $env:SPATERP_DASE_API_REFUSER = $configuration.Refuser
 $env:SPATERP_DASE_API_TOKEN = $configuration.Dase.GetNetworkCredential().Password
+$env:SPATERP_N8N_DASE_WEBHOOK_TOKEN = $configuration.N8nDase.GetNetworkCredential().Password
 $env:SPAT_N8N_VALIDATION_WEBHOOK_URL = 'http://127.0.0.1:5678/webhook/spat/factures-fournisseurs/validation'
 $env:JAVA_HOME = $javaHome
 $env:JBOSS_HOME = $wildFlyHome
@@ -71,6 +73,7 @@ finally {
     foreach ($name in @('SPATERP_API_USER', 'SPATERP_API_TOKEN', 'SPATERP_USER_API_REFUSER',
             'SPATERP_USER_API_TOKEN', 'SPATERP_BED_API_REFUSER', 'SPATERP_BED_API_TOKEN',
             'SPATERP_DASE_API_REFUSER', 'SPATERP_DASE_API_TOKEN',
+            'SPATERP_N8N_DASE_WEBHOOK_TOKEN',
             'SPAT_N8N_VALIDATION_WEBHOOK_URL')) {
         Remove-Item "Env:$name" -ErrorAction SilentlyContinue
     }

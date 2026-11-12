@@ -11,6 +11,15 @@
 <%@page import="affichage.PageConsulte"%>
 <%@page import="user.UserEJB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    private String escapeN8nDaseHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
     try{
     UserEJB u = (user.UserEJB) session.getValue("u");
@@ -63,6 +72,34 @@
                 </h1>
                 <div class="box-body">
                     <%
+                        Object validationFlash = session.getAttribute("n8nDaseValidation:" + id);
+                        if (validationFlash instanceof Map) {
+                            session.removeAttribute("n8nDaseValidation:" + id);
+                            Map<String, Object> validationResult = (Map<String, Object>) validationFlash;
+                            Object validationStatusValue = validationResult.get("statut");
+                            String validationStatus = validationStatusValue == null ? "INDISPONIBLE" : String.valueOf(validationStatusValue);
+                            boolean validationOk = "VALIDE".equalsIgnoreCase(validationStatus);
+                            Object validationErrors = validationResult.get("errors");
+                    %>
+                        <div class="alert <%= validationOk ? "alert-success" : "alert-warning" %>" role="alert">
+                            <strong>Contrôle automatique n8n — <%= escapeN8nDaseHtml(validationStatus) %></strong>
+                            <p>La DASE est enregistrée. Résultat du contrôle :</p>
+                    <%
+                            if (validationErrors instanceof java.util.List) {
+                                for (Object validationError : (java.util.List) validationErrors) {
+                    %>
+                            <p><%= escapeN8nDaseHtml(validationError) %></p>
+                    <%
+                                }
+                            } else if (validationErrors != null) {
+                    %>
+                            <p><%= escapeN8nDaseHtml(validationErrors) %></p>
+                    <%
+                            }
+                    %>
+                        </div>
+                    <%
+                        }
                         out.println(pc.getHtml());
                     %>
                 </div>

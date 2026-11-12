@@ -22,13 +22,15 @@ if (Test-Path -LiteralPath $credentialPath) {
         throw 'La configuration existante ne contient pas les identités API attendues; elle est conservée.'
     }
     $daseToken = Read-ApiToken 'Nouveau jeton API DASE (saisie masquée, distinct des autres jetons)'
-    $newTokens += $daseToken
+    $n8nDaseToken = Read-ApiToken 'Jeton du webhook n8n DASE (saisie masquée, distinct des autres jetons)'
+    $newTokens += $daseToken, $n8nDaseToken
     $configuration = [pscustomobject]@{
         Refuser      = $existing.Refuser
         Tiers        = $existing.Tiers
         Utilisateurs = $existing.Utilisateurs
         Bed          = $existing.Bed
         Dase         = [pscredential]::new('SPATERP_DASE_API_TOKEN', $daseToken)
+        N8nDase      = [pscredential]::new('SPATERP_N8N_DASE_WEBHOOK_TOKEN', $n8nDaseToken)
     }
 }
 else {
@@ -44,13 +46,15 @@ else {
     $usersToken = Read-ApiToken 'Jeton API utilisateurs (saisie masquée, distinct du jeton Tiers)'
     $bedToken = Read-ApiToken 'Jeton API BED (saisie masquée, distinct des autres jetons)'
     $daseToken = Read-ApiToken 'Jeton API DASE (saisie masquée, distinct des autres jetons)'
-    $newTokens += $tiersToken, $usersToken, $bedToken, $daseToken
+    $n8nDaseToken = Read-ApiToken 'Jeton du webhook n8n DASE (saisie masquée, distinct des autres jetons)'
+    $newTokens += $tiersToken, $usersToken, $bedToken, $daseToken, $n8nDaseToken
     $configuration = [pscustomobject]@{
         Refuser      = $refuser
         Tiers        = [pscredential]::new('SPATERP_API_TOKEN', $tiersToken)
         Utilisateurs = [pscredential]::new('SPATERP_USER_API_TOKEN', $usersToken)
         Bed          = [pscredential]::new('SPATERP_BED_API_TOKEN', $bedToken)
         Dase         = [pscredential]::new('SPATERP_DASE_API_TOKEN', $daseToken)
+        N8nDase      = [pscredential]::new('SPATERP_N8N_DASE_WEBHOOK_TOKEN', $n8nDaseToken)
     }
 }
 
