@@ -1,0 +1,160 @@
+{
+  "name": "SPAT - Utilisateurs controle",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "spat/utilisateurs/controle",
+        "responseMode": "responseNode",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "id": "a2b0c2d1-0001-4b01-9c01-000000000001",
+      "name": "Recevoir l'utilisateur",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "b2b0c2d1-0001-4b01-9c01-000000000001",
+      "credentials": {
+        "httpHeaderAuth": {
+          "name": "SPAT Webhook Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst safe = body && typeof body === 'object' && !Array.isArray(body) ? body : {};\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowed = ['loginuser', 'nomuser', 'idrole', 'teluser', 'adruser', 'codeEtablissement'];\nfor (const key of Object.keys(safe)) {\n  if (!allowed.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\n\nif (!isText(safe.loginuser)) errors.push({ field: 'loginuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.loginuser.trim().length > 100) errors.push({ field: 'loginuser', message: '100 caracteres maximum.' });\nif (!isText(safe.nomuser)) errors.push({ field: 'nomuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.nomuser.trim().length > 200) errors.push({ field: 'nomuser', message: '200 caracteres maximum.' });\nif (!isText(safe.idrole)) errors.push({ field: 'idrole', message: 'Valeur texte non vide requise.' });\nif (!isText(safe.teluser)) errors.push({ field: 'teluser', message: 'Personnel obligatoire : sans lui le compte ne peut pas se connecter' });\nif (!isText(safe.adruser)) errors.push({ field: 'adruser', message: 'Direction obligatoire : sans elle le compte ne peut pas se connecter' });\nif (!isText(safe.codeEtablissement)) errors.push({ field: 'codeEtablissement', message: 'Valeur texte non vide requise.' });\n\nreturn [{ json: { ok: errors.length === 0, errors } }];"
+      },
+      "id": "a2b0c2d1-0002-4b02-9c02-000000000002",
+      "name": "Contrôler les champs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c2b0c2d1-0003-4b03-9c03-000000000003",
+              "leftValue": "={{$json.ok}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a2b0c2d1-0003-4b03-9c03-000000000003",
+      "name": "Champs valides ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { valide: true, ecrit: false } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "a2b0c2d1-0004-4b04-9c04-000000000004",
+      "name": "Réponse valide",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { valide: false, ecrit: false, errors: $json.errors } }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "a2b0c2d1-0005-4b05-9c05-000000000005",
+      "name": "Réponse invalide",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Recevoir l'utilisateur": {
+      "main": [
+        [
+          {
+            "node": "Contrôler les champs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contrôler les champs": {
+      "main": [
+        [
+          {
+            "node": "Champs valides ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Champs valides ?": {
+      "main": [
+        [
+          {
+            "node": "Réponse valide",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse invalide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d2b0c2d1-0001-4b01-9c01-000000000001",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
