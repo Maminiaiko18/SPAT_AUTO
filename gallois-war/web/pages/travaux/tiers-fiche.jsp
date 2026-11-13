@@ -12,6 +12,15 @@
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
 
+<%!
+    private String escapeN8nTiersHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
     Tiers t = new Tiers();
     t.setNomTable("FOURNISSEUR_UNION_PERSONNEL");
@@ -52,6 +61,37 @@
                         <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=travaux/tiers-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
+                        <%
+                            String tiersFlashId = request.getParameter("id");
+                            Object tiersValidationFlash = session.getAttribute("n8nTiersValidation:" + tiersFlashId);
+                            if (tiersValidationFlash instanceof java.util.Map) {
+                                session.removeAttribute("n8nTiersValidation:" + tiersFlashId);
+                                java.util.Map tiersValidationResult = (java.util.Map) tiersValidationFlash;
+                                Object tiersValidationStatusValue = tiersValidationResult.get("statut");
+                                String tiersValidationStatus = tiersValidationStatusValue == null ? "INDISPONIBLE" : String.valueOf(tiersValidationStatusValue);
+                                boolean tiersValidationOk = "VALIDE".equalsIgnoreCase(tiersValidationStatus);
+                                Object tiersValidationErrors = tiersValidationResult.get("errors");
+                        %>
+                        <div class="alert <%= tiersValidationOk ? "alert-success" : "alert-warning" %>" role="alert">
+                            <strong>Controle automatique n8n - <%= escapeN8nTiersHtml(tiersValidationStatus) %></strong>
+                            <p>Le tiers est enregistre. Resultat du controle :</p>
+                        <%
+                                if (tiersValidationErrors instanceof java.util.List) {
+                                    for (Object tiersValidationError : (java.util.List) tiersValidationErrors) {
+                        %>
+                            <p><%= escapeN8nTiersHtml(tiersValidationError) %></p>
+                        <%
+                                    }
+                                } else if (tiersValidationErrors != null) {
+                        %>
+                            <p><%= escapeN8nTiersHtml(tiersValidationErrors) %></p>
+                        <%
+                                }
+                        %>
+                        </div>
+                        <%
+                            }
+                        %>
                         <%
                             out.println(pc.getHtml());
                         %>

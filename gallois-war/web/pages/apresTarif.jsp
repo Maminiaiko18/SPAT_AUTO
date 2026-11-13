@@ -610,6 +610,15 @@
         
         String idAttributeName = "id";
         if(t != null && t.getAttributIDName() != null && !t.getAttributIDName().trim().isEmpty()) idAttributeName = t.getAttributIDName();
+        if (acte != null && acte.equalsIgnoreCase("insert")
+                && classe != null && classe.compareToIgnoreCase("mg.spat.Tiers") == 0
+                && temp != null) {
+            try {
+                mg.spat.automation.N8nTiersValidationService.validateAfterSave(
+                        classe, (bean.ClassMAPTable) temp, session);
+            } catch (Exception tiersValidationException) {
+            }
+        }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&valeur=<%=val%>&<%=idAttributeName%>=<%=Utilitaire.champNull(id)%>");</script>
     <%
