@@ -8,6 +8,7 @@
 <%@page import="mg.spat.AttacherFichier"%>
 <%@page import="service.UploadService"%>
 <%@page import="historique.MapUtilisateur"%>
+<%@page import="historique.AnnulationUtilisateurUtil"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
 <%@ page import="utilitaire.*" %>
@@ -30,6 +31,27 @@
     pc.setTitre("Fiche Utilisateur");
     pc.getChampByName("refuser").setVisible(false);
     String dossier="parametre";
+    String refuserFiche = request.getParameter("refuser");
+    UserEJB uFiche = (user.UserEJB) session.getValue("u");
+    boolean compteDesactive = false;
+    if (refuserFiche != null && refuserFiche.matches("^[0-9]{1,10}$")) {
+        Object[] annulationsCompte = new AnnulationUtilisateurUtil().rechercher(2, refuserFiche);
+        compteDesactive = annulationsCompte != null && annulationsCompte.length > 0;
+    }
+    String flashStatutUtilisateur = null;
+    if (refuserFiche != null) {
+        Object flashObj = session.getAttribute("statutUtilisateurMsg:" + refuserFiche);
+        if (flashObj != null) {
+            flashStatutUtilisateur = String.valueOf(flashObj);
+            session.removeAttribute("statutUtilisateurMsg:" + refuserFiche);
+        }
+    }
+    String currentUserRef = (uFiche != null && uFiche.getUser() != null) ? String.valueOf(uFiche.getUser().getRefuser()) : null;
+    String currentUserRole = (uFiche != null && uFiche.getUser() != null) ? uFiche.getUser().getIdrole() : null;
+    String apiServiceRefuser = System.getenv("SPATERP_USER_API_REFUSER");
+    boolean canManageStatut = ("admin".equals(currentUserRole) || "dg".equals(currentUserRole))
+            && currentUserRef != null && refuserFiche != null && !currentUserRef.equals(refuserFiche)
+            && (apiServiceRefuser == null || !apiServiceRefuser.equals(refuserFiche));
     pc.getChampByName("pwduser").setVisible(false);
     pc.getChampByName("CodeEtablissement").setVisible(false);
     pc.getChampByName("idrole").setLibelle("R�le");
@@ -65,6 +87,12 @@
                         <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=parametre/utilisateur-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
+                        <div style="margin-bottom:10px;">
+                            <span class="label <%= compteDesactive ? "label-danger" : "label-success" %>"><%= compteDesactive ? "D&Eacute;SACTIV&Eacute;" : "ACTIF" %></span>
+                        </div>
+                        <% if (flashStatutUtilisateur != null) { %>
+                        <div class="alert alert-info" role="alert"><%= escapeN8nUtilisateurHtml(flashStatutUtilisateur) %></div>
+                        <% } %>
                         <%
                             String utilisateurFlashRefuser = request.getParameter("refuser");
                             Object utilisateurValidationFlash = session.getAttribute("n8nUtilisateurValidation:" + utilisateurFlashRefuser);
@@ -105,8 +133,15 @@
                             
                                <a class="btn btn-warning pull-left"  href="<%=(String) session.getValue("lien") + "?but=utilisateur/utilisateur-modification.jsp&refuser=" + request.getParameter("refuser")%>" style="margin-right: 10px">Modifier sans MDP</a> 
                             
-                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerUtilisateur&refuser=<%=request.getParameter("refuser")%>" style="margin-right: 10px">Imprimer </a>                            
-                        
+                            <a class="btn btn-primary pull-right"  href="${pageContext.request.contextPath}/Paie?action=imprimerUtilisateur&refuser=<%=request.getParameter("refuser")%>" style="margin-right: 10px">Imprimer </a>
+                            <% if (canManageStatut) { %>
+                            <form method="post" action="${pageContext.request.contextPath}/pages/utilisateur/apresStatutUtilisateur.jsp" style="display:inline; margin-right:10px;" class="pull-left">
+                                <%-- <input type="hidden" name="but" value="utilisateur/apresStatutUtilisateur.jsp"/> --%>
+                                <input type="hidden" name="refuser" value="<%=refuserFiche%>"/>
+                                <input type="hidden" name="acte" value="<%= compteDesactive ? "reactiver" : "desactiver" %>"/>
+                                <button type="submit" class="btn <%= compteDesactive ? "btn-success" : "btn-danger" %>" onclick="return confirm('<%= compteDesactive ? "R&eacute;activer cet utilisateur ?" : "D&eacute;sactiver cet utilisateur ?" %>');"><%= compteDesactive ? "R&eacute;activer" : "D&eacute;sactiver" %></button>
+                            </form>
+                            <% } %>
                         </div>
                         <br/>
 
