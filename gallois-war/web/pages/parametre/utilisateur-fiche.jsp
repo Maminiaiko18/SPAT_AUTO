@@ -13,6 +13,15 @@
 <%@ page import="utilitaire.*" %>
 <%@ page import="affichage.*" %>
 
+<%!
+    private String escapeN8nUtilisateurHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
     try{
        
@@ -56,6 +65,37 @@
                         <h1 class="box-title"><a href="<%=(String) session.getValue("lien")%>?but=parametre/utilisateur-fiche.jsp"><i class="fa fa-arrow-circle-left"></i></a><%=pc.getTitre()%></h1>
                     </div>
                     <div class="box-body">
+                        <%
+                            String utilisateurFlashRefuser = request.getParameter("refuser");
+                            Object utilisateurValidationFlash = session.getAttribute("n8nUtilisateurValidation:" + utilisateurFlashRefuser);
+                            if (utilisateurValidationFlash instanceof java.util.Map) {
+                                session.removeAttribute("n8nUtilisateurValidation:" + utilisateurFlashRefuser);
+                                java.util.Map utilisateurValidationResult = (java.util.Map) utilisateurValidationFlash;
+                                Object utilisateurValidationStatusValue = utilisateurValidationResult.get("statut");
+                                String utilisateurValidationStatus = utilisateurValidationStatusValue == null ? "INDISPONIBLE" : String.valueOf(utilisateurValidationStatusValue);
+                                boolean utilisateurValidationOk = "VALIDE".equalsIgnoreCase(utilisateurValidationStatus);
+                                Object utilisateurValidationErrors = utilisateurValidationResult.get("errors");
+                        %>
+                        <div class="alert <%= utilisateurValidationOk ? "alert-success" : "alert-warning" %>" role="alert">
+                            <strong>Controle automatique n8n - <%= escapeN8nUtilisateurHtml(utilisateurValidationStatus) %></strong>
+                            <p>L'utilisateur est enregistre. Resultat du controle :</p>
+                        <%
+                                if (utilisateurValidationErrors instanceof java.util.List) {
+                                    for (Object utilisateurValidationError : (java.util.List) utilisateurValidationErrors) {
+                        %>
+                            <p><%= escapeN8nUtilisateurHtml(utilisateurValidationError) %></p>
+                        <%
+                                    }
+                                } else if (utilisateurValidationErrors != null) {
+                        %>
+                            <p><%= escapeN8nUtilisateurHtml(utilisateurValidationErrors) %></p>
+                        <%
+                                }
+                        %>
+                        </div>
+                        <%
+                            }
+                        %>
                         <%
                             out.println(pc.getHtml());
                         %>

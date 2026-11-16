@@ -196,6 +196,11 @@
                 f.setNomTable(nomtable);
                 MapUtilisateur util = (MapUtilisateur) f;
                 id = u.createUtilisateurs(util.getLoginuser(), util.getPwduser(), util.getNomuser(), util.getAdruser(), util.getTeluser(), util.getIdrole(),util.getCodeEtablissement());
+                try {
+                    mg.spat.automation.N8nUtilisateurValidationService.validateAfterSave(
+                            classe, util, id, session);
+                } catch (Exception utilisateurValidationException) {
+                }
     %>
     <script language="JavaScript"> document.location.replace("<%=lien%>?but=<%=bute + rajoutLie%>&refuser=<%=Utilitaire.champNull(id)%>");</script>
     <%
