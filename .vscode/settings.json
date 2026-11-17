@@ -72,5 +72,9 @@
     ],
     "java.project.sourcePaths": [
         "gallois-ejb\\src\\java"
-    ]
+    ],
+    "editor.formatOnSave": false,
+"editor.formatOnPaste": false,
+"[jsp]": { "editor.formatOnSave": false },
+"[html]": { "editor.formatOnSave": false }
 }

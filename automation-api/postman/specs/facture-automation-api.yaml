@@ -40,6 +40,164 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadinessResponse'
+  /api/v1/tiers/doublons:
+    get:
+      operationId: findTiersDoublonsByQuery
+      summary: Rechercher les tiers existants en doublon (lecture seule)
+      description: >-
+        Compare le nom, le NIF et le STAT fournis aux lignes de TIERS, hors ID
+        exclu. Le nom est comparé sans tenir compte de la casse. Aucune écriture
+        dans SPAT.
+      parameters:
+        - name: nom
+          in: query
+          schema: {type: string}
+        - name: nif
+          in: query
+          schema: {type: string}
+        - name: stat
+          in: query
+          schema: {type: string}
+        - name: idExclu
+          in: query
+          description: ID du tiers venant d'être créé, exclu de la recherche.
+          schema: {type: string}
+      responses:
+        '200':
+          description: Recherche effectuée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoublonsResponse'
+              example:
+                statut: A_VERIFIER
+                doublons:
+                  - id: TIE-DEMO-1
+                    nom: Societe Exemple
+        '503':
+          description: Connexion Oracle lecture seule non activée ou indisponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+              example:
+                erreur: Oracle SPAT_RO non configuré
+    post:
+      operationId: findTiersDoublons
+      summary: Rechercher les tiers existants en doublon (lecture seule)
+      description: >-
+        Même contrôle que le GET, avec les critères dans le corps JSON. Utilisé
+        par le workflow n8n de contrôle après enregistrement d'un tiers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TiersDoublonsRequest'
+            example:
+              nom: Societe Exemple
+              nif: '1234567890'
+              stat: '12345678901234567'
+              idExclu: TIE-DEMO-2
+      responses:
+        '200':
+          description: Recherche effectuée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoublonsResponse'
+              examples:
+                doublon:
+                  value:
+                    statut: A_VERIFIER
+                    doublons:
+                      - id: TIE-DEMO-1
+                        nom: Societe Exemple
+                sansDoublon:
+                  value:
+                    statut: VALIDE
+                    doublons: []
+        '400':
+          description: Corps JSON invalide.
+        '503':
+          description: Connexion Oracle lecture seule non activée ou indisponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+              example:
+                erreur: Oracle SPAT_RO non configuré
+  /api/v1/utilisateurs/doublons:
+    get:
+      operationId: findUtilisateursDoublonsByQuery
+      summary: Rechercher les utilisateurs existants avec le même login (lecture seule)
+      parameters:
+        - name: loginuser
+          in: query
+          schema: {type: string}
+        - name: refuser
+          in: query
+          description: REFUSER de l'utilisateur venant d'être créé, exclu de la recherche.
+          schema: {type: string}
+      responses:
+        '200':
+          description: Recherche effectuée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoublonsResponse'
+              example:
+                statut: A_VERIFIER
+                doublons:
+                  - id: '2100'
+                    nom: cdev
+        '503':
+          description: Connexion Oracle lecture seule non activée ou indisponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+    post:
+      operationId: findUtilisateursDoublons
+      summary: Rechercher les utilisateurs existants avec le même login (lecture seule)
+      description: >-
+        Même contrôle que le GET, avec les critères dans le corps JSON. Utilisé
+        par le workflow n8n de contrôle après enregistrement d'un utilisateur.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UtilisateurDoublonsRequest'
+            example:
+              loginuser: test.recette
+              refuser: '2101'
+      responses:
+        '200':
+          description: Recherche effectuée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoublonsResponse'
+              examples:
+                doublon:
+                  value:
+                    statut: A_VERIFIER
+                    doublons:
+                      - id: '2100'
+                        nom: cdev
+                sansDoublon:
+                  value:
+                    statut: VALIDE
+                    doublons: []
+        '400':
+          description: Corps JSON invalide.
+        '503':
+          description: Connexion Oracle lecture seule non activée ou indisponible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
   /api/v1/factures-fournisseurs/validation:
     post:
       operationId: validateSupplierInvoice
@@ -186,6 +344,58 @@ components:
           type: array
           items:
             type: string
+    TiersDoublonsRequest:
+      type: object
+      properties:
+        nom:
+          type: string
+          description: >-
+            Nom du tiers créé. Comparé sans tenir compte de la casse et des
+            espaces en début/fin.
+        nif:
+          type: string
+          description: NIF du tiers créé.
+        stat:
+          type: string
+          description: STAT du tiers créé.
+        idExclu:
+          type: string
+          description: >-
+            ID du tiers venant d'être créé. Ce tiers n'est jamais retourné
+            comme doublon de lui-même.
+    UtilisateurDoublonsRequest:
+      type: object
+      properties:
+        loginuser:
+          type: string
+          description: Login de l'utilisateur créé.
+        refuser:
+          type: string
+          description: >-
+            REFUSER de l'utilisateur créé. Cet utilisateur n'est jamais
+            retourné comme doublon de lui-même.
+    DoublonsResponse:
+      type: object
+      required: [statut, doublons]
+      properties:
+        statut:
+          type: string
+          enum: [VALIDE, A_VERIFIER]
+          description: A_VERIFIER si au moins un doublon a été trouvé.
+        doublons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Doublon'
+    Doublon:
+      type: object
+      required: [id, nom]
+      properties:
+        id:
+          type: string
+          description: ID du tiers (TIERS.ID) ou REFUSER de l'utilisateur.
+        nom:
+          type: string
+          description: NOM du tiers ou NOMUSER de l'utilisateur.
     ServiceUnavailableResponse:
       type: object
       required: [erreur]

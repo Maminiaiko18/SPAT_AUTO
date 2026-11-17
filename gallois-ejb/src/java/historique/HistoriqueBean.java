@@ -375,17 +375,23 @@ public class HistoriqueBean implements HistoriqueRemote, HistoriqueLocal, Sessio
     public int activeUtilisateur(String ref, String refUser) throws bean.ErreurDAO {
         try {
             AnnulationUtilisateur[] au = (AnnulationUtilisateur[]) new AnnulationUtilisateurUtil().rechercher(2, ref);
+            if (au == null) {
+                throw new bean.ErreurDAO("Impossible de vérifier le statut du compte utilisateur");
+            }
+            if (au.length == 0) {
+                throw new bean.ErreurDAO("Utilisateur déjà actif");
+            }
             historique.MapHistorique h = new historique.MapHistorique("Utilisateurs", "active", refUser, ref);
             for (int i = 0; i < au.length; i++) {
                 au[i].deleteToTable(h);
             }
             return 1;
         } catch (ErreurDAO ex) {
-            throw new bean.ErreurDAO(ex.getMessage());
+            throw ex;
         } catch (Exception ex) {
             Logger.getLogger(HistoriqueBean.class.getName()).log(Level.SEVERE, null, ex);
+            throw new bean.ErreurDAO("Erreur lors de la réactivation du compte utilisateur : " + ex.getMessage());
         }
-        return 1;
     }
 
     public MapUtilisateur testeValide(String user, String pass, String interim, String service) throws Exception {

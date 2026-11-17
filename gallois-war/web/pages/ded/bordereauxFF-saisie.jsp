@@ -80,10 +80,11 @@
         pi.getFormu().getChamp("daty").setDefaut(Utilitaire.dateDuJour());
         pi.getFormu().getChamp("daty").setLibelle("Date");
         pi.getFormu().getChamp("anneebudgetaire").setLibelle("Ann&eacute;e budg&eacute;taire");
-        pi.getFormu().getChamp("anneebudgetaire").setDefaut(String.valueOf(factures[0].getAnneebudgetaire()));
+        pi.getFormu().getChamp("anneebudgetaire").setDefaut(Utilitaire.getAnneeEnCours());
         pi.getFormu().getChamp("directionlib").setVisible(false);
         pi.getFormu().getChamp("projetlib").setVisible(false);
         if(factures.length > 0){
+            pi.getFormu().getChamp("anneebudgetaire").setDefaut(String.valueOf(factures[0].getAnneebudgetaire()));
             pi.getFormu().getChamp("direction").setDefaut(factures[0].getCode_etablissement());
             pi.getFormu().getChamp("projet").setDefaut(factures[0].getProjet());
             pi.getFormu().getChamp("tiers").setDefaut(factures[0].getTiers());
@@ -97,7 +98,9 @@
             for (int i = 0; i < taille; i++) {
                 pi.getFormufle().getChamp("montant_" + i).setAutre("readonly");
                 
-                pi.getFormufle().getChamp("idop_" + i).setPageAppel("choix/listeFactureFournisseurChoix.jsp");
+                pi.getFormufle().getChamp("idop_" + i).setPageAppel(
+                    "choix/listeFactureFournisseurChoix.jsp",
+                    "idop_" + i + ";idoplibelle_" + i);
                 pi.getFormufle().getChamp("idop_" + i).setAutre("readonly");
                 
                 if(i < lesOp.length) {

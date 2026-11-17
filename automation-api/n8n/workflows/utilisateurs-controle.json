@@ -26,7 +26,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst safe = body && typeof body === 'object' && !Array.isArray(body) ? body : {};\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowed = ['loginuser', 'nomuser', 'idrole', 'teluser', 'adruser', 'codeEtablissement'];\nfor (const key of Object.keys(safe)) {\n  if (!allowed.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\n\nif (!isText(safe.loginuser)) errors.push({ field: 'loginuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.loginuser.trim().length > 100) errors.push({ field: 'loginuser', message: '100 caracteres maximum.' });\nif (!isText(safe.nomuser)) errors.push({ field: 'nomuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.nomuser.trim().length > 200) errors.push({ field: 'nomuser', message: '200 caracteres maximum.' });\nif (!isText(safe.idrole)) errors.push({ field: 'idrole', message: 'Valeur texte non vide requise.' });\nif (!isText(safe.teluser)) errors.push({ field: 'teluser', message: 'Personnel obligatoire : sans lui le compte ne peut pas se connecter' });\nif (!isText(safe.adruser)) errors.push({ field: 'adruser', message: 'Direction obligatoire : sans elle le compte ne peut pas se connecter' });\nif (!isText(safe.codeEtablissement)) errors.push({ field: 'codeEtablissement', message: 'Valeur texte non vide requise.' });\n\nreturn [{ json: { ok: errors.length === 0, errors } }];"
+        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst safe = body && typeof body === 'object' && !Array.isArray(body) ? body : {};\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowed = ['loginuser', 'nomuser', 'idrole', 'teluser', 'adruser', 'codeEtablissement', 'refuser'];\nfor (const key of Object.keys(safe)) {\n  if (!allowed.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\n\nif (!isText(safe.loginuser)) errors.push({ field: 'loginuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.loginuser.trim().length > 100) errors.push({ field: 'loginuser', message: '100 caracteres maximum.' });\nif (!isText(safe.nomuser)) errors.push({ field: 'nomuser', message: 'Valeur texte non vide requise.' });\nelse if (safe.nomuser.trim().length > 200) errors.push({ field: 'nomuser', message: '200 caracteres maximum.' });\nif (!isText(safe.idrole)) errors.push({ field: 'idrole', message: 'Valeur texte non vide requise.' });\nif (!isText(safe.teluser)) errors.push({ field: 'teluser', message: 'Personnel obligatoire : sans lui le compte ne peut pas se connecter' });\nif (!isText(safe.adruser)) errors.push({ field: 'adruser', message: 'Direction obligatoire : sans elle le compte ne peut pas se connecter' });\nif (!isText(safe.codeEtablissement)) errors.push({ field: 'codeEtablissement', message: 'Valeur texte non vide requise.' });\n\nreturn [{ json: { ok: errors.length === 0, errors, payload: safe } }];"
       },
       "id": "a2b0c2d1-0002-4b02-9c02-000000000002",
       "name": "Contrôler les champs",
@@ -73,8 +73,42 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "={{$env.SPAT_AUTOMATION_API_URL || 'http://127.0.0.1:8088'}}/api/v1/utilisateurs/doublons",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ loginuser: $json.payload.loginuser, refuser: $json.payload.refuser || '' }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "a2b0c2d1-0006-4b06-9c06-000000000006",
+      "name": "Vérifier les doublons",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        180
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const api = $input.first().json || {};\nconst doublons = Array.isArray(api.doublons) ? api.doublons : [];\nconst liste = doublons.map((d) => 'ID ' + (d && d.id != null ? d.id : '') + ' - ' + (d && d.nom != null ? d.nom : '')).join(' ; ');\nconst message = doublons.length > 0 ? 'Doublons detectes : ' + liste + '.' : '';\nreturn [{ json: { valide: true, ecrit: false, statut: doublons.length > 0 ? 'A_VERIFIER' : 'VALIDE', doublons: doublons, message: message } }];"
+      },
+      "id": "a2b0c2d1-0007-4b07-9c07-000000000007",
+      "name": "Préparer la réponse",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        180
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { valide: true, ecrit: false } }}",
+        "responseBody": "={{ { valide: true, ecrit: false, statut: $json.statut, doublons: $json.doublons, message: $json.message } }}",
         "options": {
           "responseCode": 200
         }
@@ -84,7 +118,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        960,
+        1440,
         180
       ]
     },
@@ -102,6 +136,23 @@
       "typeVersion": 1.1,
       "position": [
         960,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { valide: true, ecrit: false, statut: 'INDISPONIBLE', message: 'Recherche de doublons indisponible (API SPAT_RO).' } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "a2b0c2d1-0008-4b08-9c08-000000000008",
+      "name": "Réponse API indisponible",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
         460
       ]
     }
@@ -133,7 +184,7 @@
       "main": [
         [
           {
-            "node": "Réponse valide",
+            "node": "Vérifier les doublons",
             "type": "main",
             "index": 0
           }
@@ -146,13 +197,42 @@
           }
         ]
       ]
+    },
+    "Vérifier les doublons": {
+      "main": [
+        [
+          {
+            "node": "Préparer la réponse",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Réponse API indisponible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Préparer la réponse": {
+      "main": [
+        [
+          {
+            "node": "Réponse valide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "d2b0c2d1-0001-4b01-9c01-000000000001",
+  "versionId": "d2b0c2d1-0001-4b01-9c01-000000000002",
   "meta": {
     "templateCredsSetupCompleted": false
   },

@@ -72,3 +72,5 @@
 
 - Tiers TIE0000009442100400 : visible dans le site (type Autres), etat 1 a la creation (reponse API). Visa fait manuellement dans le site : etat VISE(E). Compte fournisseur et compte client vides apres creation et apres visa (observation, a clarifier).
 - Principe illustre : l'API cree le dossier, le visa reste une decision humaine.
+
+- Saisie de facture dans le site : non aboutie. Contraintes rencontrees : compte de 11 caracteres exactement ; budget non trouve malgre des comptes de la direction 611 (le contrôle depend probablement du projet MTS en plus de la direction, a confirmer). Le controle n8n a ete valide par appel direct du webhook (VALIDE puis A_CORRIGER).

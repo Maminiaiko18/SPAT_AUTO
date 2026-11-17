@@ -12,6 +12,15 @@
 <%@ page import="bordereau.BordereauLibComplet" %>
 <%@ page import="bordereau.BordereauFilleLibComplet" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    private String escapeN8nBedHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
     try{
     BordereauFF res;
@@ -74,6 +83,34 @@
                     </div>
                     <div class="box-body">
                         <%
+                            Object bedValidationFlash = session.getAttribute("n8nBedValidation:" + id);
+                            if (bedValidationFlash instanceof java.util.Map) {
+                                session.removeAttribute("n8nBedValidation:" + id);
+                                java.util.Map bedValidationResult = (java.util.Map) bedValidationFlash;
+                                Object bedValidationStatusValue = bedValidationResult.get("statut");
+                                String bedValidationStatus = bedValidationStatusValue == null ? "INDISPONIBLE" : String.valueOf(bedValidationStatusValue);
+                                boolean bedValidationOk = "VALIDE".equalsIgnoreCase(bedValidationStatus);
+                                Object bedValidationErrors = bedValidationResult.get("errors");
+                        %>
+                        <div class="alert <%= bedValidationOk ? "alert-success" : "alert-warning" %>" role="alert">
+                            <strong>Contr&ocirc;le automatique n8n - <%= escapeN8nBedHtml(bedValidationStatus) %></strong>
+                            <p>Le BED est enregistr&eacute;. R&eacute;sultat du contr&ocirc;le :</p>
+                        <%
+                            if (bedValidationErrors instanceof java.util.List) {
+                                for (Object bedValidationError : (java.util.List) bedValidationErrors) {
+                        %>
+                            <p><%= escapeN8nBedHtml(bedValidationError) %></p>
+                        <%
+                                }
+                            } else if (bedValidationErrors != null) {
+                        %>
+                            <p><%= escapeN8nBedHtml(bedValidationErrors) %></p>
+                        <%
+                            }
+                        %>
+                        </div>
+                        <%
+                            }
                             out.println(pc.getHtml());
                         %>
                         <br/>

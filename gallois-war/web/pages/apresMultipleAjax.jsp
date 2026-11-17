@@ -6,6 +6,7 @@
 <%@page import="facture.PaiementFacture"%>
 <%@page import="mg.spat.automation.N8nInvoiceValidationService"%>
 <%@page import="mg.spat.automation.N8nDaseValidationService"%>
+<%@page import="mg.spat.automation.N8nBedValidationService"%>
 <%@page import="factureclient.FactureClientDetail"%>
 <%@ page import="user.*" %>
 <%@ page import="utilitaire.*" %>
@@ -83,6 +84,12 @@
                     try {
                         N8nDaseValidationService.validateAfterSave(classe, classefille, cfille, idmere, session);
                     } catch (Exception daseValidationException) {
+                    }
+                }
+                if (classe != null && classe.compareToIgnoreCase("bordereau.BordereauFF") == 0) {
+                    try {
+                        N8nBedValidationService.validateAfterSave(classe, o, idmere, session);
+                    } catch (Exception bedValidationException) {
                     }
                 }
             }

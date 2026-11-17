@@ -122,6 +122,37 @@
       "options": { "cwd": "${workspaceFolder}" },
       "presentation": { "reveal": "always", "panel": "dedicated", "focus": true },
       "problemMatcher": []
+    },
+    {
+      "label": "SPAT : valider contrat API DASE",
+      "type": "process",
+      "command": "postman.cmd",
+      "args": [
+        "spec",
+        "lint",
+        "automation-api/postman/specs/spaterp-dase-api.yaml",
+        "--issueType",
+        "syntax",
+        "--no-report-events"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "SPAT : lint collection API DASE",
+      "type": "process",
+      "command": "postman.cmd",
+      "args": [
+        "collection",
+        "lint",
+        "automation-api/postman/collections/SPAT DASE API",
+        "--fail-severity",
+        "warning"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
     }
   ]
 }
