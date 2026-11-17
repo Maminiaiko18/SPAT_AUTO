@@ -74,7 +74,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$env.SPAT_AUTOMATION_API_URL || 'http://127.0.0.1:8088'}}/api/v1/utilisateurs/doublons",
+        "url": "http://127.0.0.1:8088/api/v1/utilisateurs/doublons",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ loginuser: $json.payload.loginuser, refuser: $json.payload.refuser || '' }) }}",

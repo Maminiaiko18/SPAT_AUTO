@@ -74,7 +74,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$env.SPAT_AUTOMATION_API_URL || 'http://127.0.0.1:8088'}}/api/v1/tiers/doublons",
+        "url": "http://127.0.0.1:8088/api/v1/tiers/doublons",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ nom: $json.payload.nom, nif: $json.payload.nif, stat: $json.payload.stat, idExclu: $json.payload.id || '' }) }}",
