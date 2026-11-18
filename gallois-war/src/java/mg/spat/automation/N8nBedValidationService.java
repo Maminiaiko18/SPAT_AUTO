@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 /** Calls the configured n8n BED control webhook after SPAT has saved a bordereau. */
 public final class N8nBedValidationService {
