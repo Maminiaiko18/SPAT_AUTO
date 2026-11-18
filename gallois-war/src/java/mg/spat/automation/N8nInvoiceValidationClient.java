@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 /** Calls the configured n8n production webhook after a supplier invoice is saved. */
 public final class N8nInvoiceValidationClient {

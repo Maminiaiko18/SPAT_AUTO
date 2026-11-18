@@ -44,7 +44,7 @@ public final class N8nBedValidationService {
 
         Map<String, Object> result;
         try {
-            result = validate(bed);
+            result = validate(bed, flashId);
         } catch (Exception validationException) {
             result = new LinkedHashMap<String, Object>();
             result.put("statut", "INDISPONIBLE");
@@ -58,7 +58,7 @@ public final class N8nBedValidationService {
         }
     }
 
-    private static Map<String, Object> validate(BordereauFF bed) {
+    private static Map<String, Object> validate(BordereauFF bed, String bedId) {
         Map<String, Object> result = new LinkedHashMap<String, Object>();
         String token = System.getenv("SPATERP_N8N_DASE_WEBHOOK_TOKEN");
         if (token == null || token.trim().isEmpty()) {
@@ -78,6 +78,7 @@ public final class N8nBedValidationService {
             payload.put("anneebudgetaire", Integer.valueOf(bed.getAnneebudgetaire()));
             payload.put("designation", value(bed.getDesignation()));
             payload.put("typebordereau", value(bed.getTypebordereau()));
+            payload.put("id", value(bedId));
 
             connection = (HttpURLConnection) new URL(endpoint).openConnection();
             connection.setRequestMethod("POST");
@@ -98,6 +99,19 @@ public final class N8nBedValidationService {
             result.put("httpStatus", Integer.valueOf(status));
             if (status == 200 && isValide(response)) {
                 result.put("statut", "VALIDE");
+                                Map<String, Object> n8nResponse = response == null || response.trim().isEmpty()
+                        ? null : firstObject(MAPPER.readValue(response, Object.class));
+                Object n8nStatut = n8nResponse == null ? null : n8nResponse.get("statut");
+                if (n8nStatut != null) {
+                    String bandeauStatut = String.valueOf(n8nStatut).trim().toUpperCase(Locale.ROOT);
+                    if ("A_VERIFIER".equals(bandeauStatut) || "INDISPONIBLE".equals(bandeauStatut)) {
+                        result.put("statut", bandeauStatut);
+                        Object message = n8nResponse.get("message");
+                        if (message != null && !String.valueOf(message).trim().isEmpty()) {
+                            result.put("errors", singleError(String.valueOf(message)));
+                        }
+                    }
+                }
             } else if (status == 400) {
                 Object parsed = response.trim().isEmpty() ? null : MAPPER.readValue(response, Object.class);
                 List<String> errors = extractErrors(parsed);

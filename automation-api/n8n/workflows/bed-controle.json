@@ -26,7 +26,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst safe = body && typeof body === 'object' && !Array.isArray(body) ? body : {};\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowed = ['daty', 'anneebudgetaire', 'designation', 'typebordereau'];\nfor (const key of Object.keys(safe)) {\n  if (!allowed.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\nconst isDaty = (value) => {\n  if (typeof value !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return false;\n  const parsed = new Date(value + 'T00:00:00Z');\n  return !isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;\n};\nconst isYear = (value) => {\n  if (typeof value === 'number') return Number.isInteger(value) && value > 0;\n  if (typeof value === 'string' && /^[0-9]+$/.test(value.trim())) return parseInt(value.trim(), 10) > 0;\n  return false;\n};\nconst isType = (value) => typeof value === 'string' && /^TYPB[12]$/i.test(value.trim());\n\nif (!isDaty(safe.daty)) errors.push({ field: 'daty', message: 'Date requise au format AAAA-MM-JJ.' });\nif (!isYear(safe.anneebudgetaire)) errors.push({ field: 'anneebudgetaire', message: 'Annee budgetaire strictement positive requise.' });\nif (!isText(safe.designation)) errors.push({ field: 'designation', message: 'Valeur texte non vide requise.' });\nelse if (safe.designation.trim().length > 40) errors.push({ field: 'designation', message: '40 caracteres maximum.' });\nif (!isType(safe.typebordereau)) errors.push({ field: 'typebordereau', message: 'Valeur attendue : TYPB1 (BED) ou TYPB2 (Etat de depense).' });\n\nreturn [{ json: { ok: errors.length === 0, errors } }];"
+        "jsCode": "const input = $input.first().json || {};\nconst body = input.body && typeof input.body === 'object' && !Array.isArray(input.body) ? input.body : input;\nconst errors = [];\nconst safe = body && typeof body === 'object' && !Array.isArray(body) ? body : {};\n\nif (body === null || typeof body !== 'object' || Array.isArray(body)) {\n  errors.push({ field: 'body', message: 'Le corps doit etre un objet JSON.' });\n}\n\nconst allowed = ['daty', 'anneebudgetaire', 'designation', 'typebordereau', 'id'];\nfor (const key of Object.keys(safe)) {\n  if (!allowed.includes(key)) errors.push({ field: key, message: 'Champ non autorise.' });\n}\n\nconst isText = (value) => typeof value === 'string' && value.trim().length > 0;\nconst isDaty = (value) => {\n  if (typeof value !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return false;\n  const parsed = new Date(value + 'T00:00:00Z');\n  return !isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;\n};\nconst isYear = (value) => {\n  if (typeof value === 'number') return Number.isInteger(value) && value > 0;\n  if (typeof value === 'string' && /^[0-9]+$/.test(value.trim())) return parseInt(value.trim(), 10) > 0;\n  return false;\n};\nconst isType = (value) => typeof value === 'string' && /^TYPB[12]$/i.test(value.trim());\n\nif (!isDaty(safe.daty)) errors.push({ field: 'daty', message: 'Date requise au format AAAA-MM-JJ.' });\nif (!isYear(safe.anneebudgetaire)) errors.push({ field: 'anneebudgetaire', message: 'Annee budgetaire strictement positive requise.' });\nif (!isText(safe.designation)) errors.push({ field: 'designation', message: 'Valeur texte non vide requise.' });\nelse if (safe.designation.trim().length > 40) errors.push({ field: 'designation', message: '40 caracteres maximum.' });\nif (!isType(safe.typebordereau)) errors.push({ field: 'typebordereau', message: 'Valeur attendue : TYPB1 (BED) ou TYPB2 (Etat de depense).' });\n\nreturn [{ json: { ok: errors.length === 0, errors } }];"
       },
       "id": "a2b0c2d2-0002-4b02-9c02-000000000002",
       "name": "Contrôler les champs",
@@ -73,8 +73,48 @@
     },
     {
       "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8088/api/v1/bed/coherence",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $('Recevoir le BED').first().json.body.id }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 8000
+        }
+      },
+      "id": "a2b0c2d2-0006-4b06-9c06-000000000006",
+      "name": "Vérifier la cohérence",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        180
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json || {};\nif (r.statut === 'VALIDE' || r.statut === 'A_VERIFIER') {\n  return [{ json: { valide: true, ecrit: false, statut: r.statut, message: r.message || '' } }];\n}\nreturn [{ json: { valide: true, ecrit: false, statut: 'INDISPONIBLE', message: 'Controle de coherence du BED indisponible (API SPAT_RO).' } }];"
+      },
+      "id": "a2b0c2d2-0007-4b07-9c07-000000000007",
+      "name": "Résultat cohérence",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        180
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { valide: true, ecrit: false } }}",
+        "responseBody": "={{ { valide: true, ecrit: false, statut: $json.statut, message: $json.message } }}",
         "options": {
           "responseCode": 200
         }
@@ -84,7 +124,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        960,
+        1440,
         180
       ]
     },
@@ -133,7 +173,7 @@
       "main": [
         [
           {
-            "node": "Réponse valide",
+            "node": "Vérifier la cohérence",
             "type": "main",
             "index": 0
           }
@@ -146,13 +186,35 @@
           }
         ]
       ]
+    },
+    "Vérifier la cohérence": {
+      "main": [
+        [
+          {
+            "node": "Résultat cohérence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Résultat cohérence": {
+      "main": [
+        [
+          {
+            "node": "Réponse valide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "d2b0c2d2-0001-4b01-9c01-000000000001",
+  "versionId": "d2b0c2d2-0001-4b01-9c01-000000000002",
   "meta": {
     "templateCredsSetupCompleted": false
   },
