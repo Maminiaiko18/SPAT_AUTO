@@ -4,6 +4,7 @@ $wildFlyHome = 'C:\wildfy-officiel\wildfly-10.0.0.Final'
 $javaHome = 'C:\Program Files\Eclipse Adoptium\jdk-8.0.372.7-hotspot'
 $standaloneBat = Join-Path $wildFlyHome 'bin\standalone.bat'
 $credentialPath = Join-Path $repoRoot 'automation-api\local\spat-wildfly-api-credentials.xml'
+$auditCredentialPath = Join-Path $repoRoot 'automation-api\local\spat-ro-connection.xml'
 
 if (-not (Test-Path -LiteralPath $standaloneBat)) {
     throw "Installation WildFly introuvable : $wildFlyHome"
@@ -52,6 +53,18 @@ $env:SPATERP_BED_API_REFUSER = $configuration.Refuser
 $env:SPATERP_BED_API_TOKEN = $configuration.Bed.GetNetworkCredential().Password
 $env:SPATERP_DASE_API_REFUSER = $configuration.Refuser
 $env:SPATERP_DASE_API_TOKEN = $configuration.Dase.GetNetworkCredential().Password
+$disableAudit = $env:SPAT_API_AUDIT_ENABLED -eq 'false'
+$env:SPAT_API_AUDIT_ENABLED = 'false'
+if (-not $disableAudit -and (Test-Path -LiteralPath $auditCredentialPath)) {
+    $auditConfiguration = Import-Clixml -LiteralPath $auditCredentialPath
+    if ($auditConfiguration.AuditJdbcUrl -and
+        $auditConfiguration.AuditCredential.UserName -eq 'SPAT_API_AUDIT_WRITER') {
+        $env:SPAT_API_AUDIT_ENABLED = 'true'
+        $env:SPAT_API_AUDIT_JDBC_URL = $auditConfiguration.AuditJdbcUrl
+        $env:SPAT_API_AUDIT_DB_USER = $auditConfiguration.AuditCredential.UserName
+        $env:SPAT_API_AUDIT_DB_PASSWORD = $auditConfiguration.AuditCredential.GetNetworkCredential().Password
+    }
+}
 $env:SPAT_N8N_VALIDATION_WEBHOOK_URL = 'http://127.0.0.1:5678/webhook/spat/factures-fournisseurs/validation'
 $env:JAVA_HOME = $javaHome
 $env:JBOSS_HOME = $wildFlyHome
@@ -71,9 +84,11 @@ finally {
     foreach ($name in @('SPATERP_API_USER', 'SPATERP_API_TOKEN', 'SPATERP_USER_API_REFUSER',
             'SPATERP_USER_API_TOKEN', 'SPATERP_BED_API_REFUSER', 'SPATERP_BED_API_TOKEN',
             'SPATERP_DASE_API_REFUSER', 'SPATERP_DASE_API_TOKEN',
-            'SPAT_N8N_VALIDATION_WEBHOOK_URL')) {
+            'SPAT_N8N_VALIDATION_WEBHOOK_URL', 'SPAT_API_AUDIT_ENABLED',
+            'SPAT_API_AUDIT_JDBC_URL', 'SPAT_API_AUDIT_DB_USER', 'SPAT_API_AUDIT_DB_PASSWORD')) {
         Remove-Item "Env:$name" -ErrorAction SilentlyContinue
     }
     $configuration = $null
+    $auditConfiguration = $null
     Pop-Location
 }

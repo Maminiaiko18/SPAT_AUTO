@@ -16,6 +16,11 @@ spring:
 spat:
   readonly:
     enabled: ${SPAT_RO_DB_ENABLED:false}
+  audit:
+    enabled: ${SPAT_API_AUDIT_ENABLED:false}
+    jdbc-url: ${SPAT_API_AUDIT_JDBC_URL:}
+    username: ${SPAT_API_AUDIT_DB_USER:}
+    password: ${SPAT_API_AUDIT_DB_PASSWORD:}
 
 logging:
   level:

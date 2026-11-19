@@ -1,0 +1,180 @@
+{
+  "name": "SPAT - Rapport quotidien erreurs API (17h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 17,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3cf22c30-12cd-4721-a41f-ebaacbe33a57",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "execute",
+        "query": "SELECT ERROR_AT, SERVICE_NAME, HTTP_METHOD, ENDPOINT, HTTP_STATUS, ERROR_CODE, SUMMARY\nFROM SPAT_CAPITAINERIE.SPATERP_API_ERROR_LOG\nWHERE ERROR_AT >= FROM_TZ(\n        CAST(TRUNC(CAST(SYSTIMESTAMP AT TIME ZONE 'Indian/Antananarivo' AS DATE)) AS TIMESTAMP),\n        'Indian/Antananarivo'\n      )\n  AND ERROR_AT < SYSTIMESTAMP\nORDER BY ERROR_AT",
+        "options": {
+          "autoCommit": true
+        }
+      },
+      "type": "n8n-nodes-base.oracleDatabase",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bd36898a-6f43-4e2a-b75d-d6faaea82155",
+      "name": "Execute SQL",
+      "credentials": {
+        "oracleDBApi": {
+          "id": "eK4ZXn9Y48GviO4u",
+          "name": "Oracle Database Credentials account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(item => item.json);\nconst value = (row, upper, lower) => row[upper] ?? row[lower] ?? '';\nconst report = rows.map(row => {\n  const when = value(row, 'ERROR_AT', 'error_at');\n  const service = value(row, 'SERVICE_NAME', 'service_name');\n  const method = value(row, 'HTTP_METHOD', 'http_method');\n  const endpoint = value(row, 'ENDPOINT', 'endpoint');\n  const status = value(row, 'HTTP_STATUS', 'http_status');\n  const code = value(row, 'ERROR_CODE', 'error_code');\n  const summary = value(row, 'SUMMARY', 'summary');\n  return `${when} | ${service} | ${method} ${endpoint} | HTTP ${status} (${code}) | ${summary}`;\n});\nreturn [{ json: { count: rows.length, report: report.length ? report.join('\\n') : 'Aucune erreur API détectée aujourd’hui.' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "952bdd41-4180-4f0e-90a6-ff0622fd0fb6",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2fea21cf-5b8a-4177-a0fd-2740c55a77d6",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        624,
+        0
+      ],
+      "id": "087bc294-ac48-45f4-8426-6b4396f1a8a2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "eddienah50@gmail.com",
+        "toEmail": "eddienah50@gmail.com",
+        "subject": "Rapport quotidien des erreurs API SPAT - 17h",
+        "emailFormat": "text",
+        "text": "Bonjour,\n\nLe journal partagé a enregistré {{.count}} erreur(s) API depuis minuit (heure de Madagascar) :\n\n{{.report}}\n\nLes détails de requête, jetons et corps transmis ne sont pas inclus dans ce rapport.\n\nCordialement,\nJournal automatique des API SPAT",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        832,
+        -96
+      ],
+      "id": "3163fb45-b8ce-4df2-aab8-e16dcaa3efb4",
+      "name": "Send an Email",
+      "webhookId": "69b44868-5467-4918-8806-6c17ad5fd922",
+      "credentials": {
+        "smtp": {
+          "id": "T6TSCppFPUMxmZ2e",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute SQL": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Indian/Antananarivo"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "335e7bfca4f2011e221aeccf9d4e4da8cd2804e9ce3926b5a358836201848d6e"
+  },
+  "tags": []
+}
