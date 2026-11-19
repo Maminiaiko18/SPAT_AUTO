@@ -114,6 +114,16 @@ Le 28 octobre 2026, le contrat a passé `postman spec lint`, les 18 sources WAR 
 
 Le contrat OpenAPI est `postman/specs/spaterp-dase-api.yaml`; la route est implémentée par `gallois-war/src/java/mg/api/servlet/ApiDaseServlet.java`. `POST /api/demandes-achat` crée une demande d’achat et ses lignes en une seule transaction Oracle, avec les contrôles d’insertion et l’historique SPAT. `GET /api/demandes-achat/{id}` relit la demande et ses lignes. La DASE reste à l’état créé : cette API ne vise pas la demande et ne crée pas de bon de commande.
 
+Lors de la création, l’API compare maintenant le nombre de lignes relues dans la transaction au nombre envoyé. Si SPAT en a écarté une, toute la transaction est annulée et la requête échoue au lieu de répondre avec une DASE partielle. Les réponses API en erreur sont aussi ajoutées à l’historique Oracle partagé décrit ci-dessous; aucun jeton ni corps de requête n’y est écrit.
+
+## Historique commun des erreurs API
+
+Les filtres HTTP du WAR et du service Spring Boot consignent les réponses API 4xx/5xx dans `SPAT_CAPITAINERIE.SPATERP_API_ERROR_LOG`. Les colonnes gardent l’heure, le nom de l’API, la route regroupée, la méthode, le statut HTTP et un résumé générique. Le corps, les en-têtes d’authentification et les jetons ne sont pas enregistrés. Le script `db/001_api_error_log.sql` crée la table et accorde `SELECT` à `SPAT_RO`. La configuration actuelle `standalone.xml` ne comporte pas de datasource Oracle, seulement la datasource H2 de démonstration. Le script `db/002_api_error_log_writer.sql` crée un compte d’audit commun au WAR et à Spring Boot avec `INSERT` uniquement; les deux services reçoivent ses paramètres par variables d’environnement chargées depuis la configuration locale DPAPI. `SPAT_RO` reste en lecture seule.
+
+L’écriture reste désactivée tant que le compte d’audit n’est pas enregistré localement via `scripts/configure-api-error-audit.ps1` et que `SPAT_API_AUDIT_*` n’est pas chargé par les scripts de démarrage. Le workflow `n8n/workflows/rapport-quotidien-erreurs-api-17h.json` lit cette table et envoie à 17 h (heure `Indian/Antananarivo`) le résumé du jour. Il est importé désactivé; voir `GUIDE_TESTS_MANUELS.md` pour les scripts DBA, les essais et l’activation en recette.
+
+Après le grant en lecture à `SPAT_RO`, `scripts/verify-api-error-log.ps1` vérifie la table et affiche les erreurs des dernières 24 heures via SQL*Plus. Le mot de passe est demandé par SQL*Plus et n’est pas enregistré par le script.
+
 L’identité de service doit être un compte DG actif autorisé par `ACT0001` sur `dem_achat_mere` et `dem_achat_fille`. Le jeton dédié `SPATERP_DASE_API_TOKEN` et son `REFUSER` `SPATERP_DASE_API_REFUSER` sont chargés uniquement dans le processus WildFly. La tâche de configuration DPAPI conserve les trois jetons existants et demande le jeton DASE lors de sa prochaine exécution; après configuration, arrêter WildFly puis le redémarrer avec `SPAT : démarrer WildFly avec API`.
 
 La collection `postman/collections/SPAT DASE API/` comprend les contrôles sans jeton, les données invalides, la lecture et une création de recette. La création est ignorée tant que `enableDaseCreation` n’est pas explicitement réglé à `true`; ne l’activer qu’avec un jeton et des références autorisés en préproduction. Aucun jeton ni donnée de recette ne doit être ajouté aux fichiers suivis par Git.
@@ -121,3 +131,7 @@ La collection `postman/collections/SPAT DASE API/` comprend les contrôles sans 
 ## Configuration locale des identités WildFly
 
 La tâche VS Code `SPAT : configurer les identités API WildFly (première fois)` demande le REFUSER d’un compte DG actif et quatre jetons distincts, masqués. Si la configuration locale à trois jetons existe déjà, elle la conserve et demande uniquement le jeton DASE. Les identifiants sont enregistrés dans `automation-api/local/spat-wildfly-api-credentials.xml`, protégé par DPAPI pour le compte Windows courant et exclu de Git. Arrêtez l’instance WildFly déjà ouverte, puis utilisez `SPAT : démarrer WildFly avec API`; cette tâche transmet les variables uniquement au processus WildFly et affiche ses journaux dans le terminal. Elle refuse de démarrer si le port 8080 est déjà occupé.
+
+### Retour arrière de la vérification des lignes DASE
+
+Le changement concerne seulement `gallois-war/src/java/mg/api/servlet/ApiDaseServlet.java` et ce document. Pour examiner le changement : `git diff -- gallois-war/src/java/mg/api/servlet/ApiDaseServlet.java automation-api/README.md`. Pour revenir exactement à la version suivie avant ce changement (l’état de travail était propre au début), exécutez `git restore --source=HEAD -- gallois-war/src/java/mg/api/servlet/ApiDaseServlet.java automation-api/README.md`, puis reconstruisez et redéployez l’application avec votre procédure habituelle. Cette restauration retire uniquement ces deux modifications locales; gardez-la pour un cas où la recette de création échoue.

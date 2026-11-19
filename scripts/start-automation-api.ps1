@@ -62,6 +62,15 @@ $env:SPAT_RO_JDBC_URL = $settings.JdbcUrl
 $env:SPAT_RO_DB_USER = 'SPAT_RO'
 $env:SPAT_RO_DB_ENABLED = 'true'
 $env:SPAT_RO_DB_PASSWORD = $settings.Credential.GetNetworkCredential().Password
+$disableAudit = $env:SPAT_API_AUDIT_ENABLED -eq 'false'
+$env:SPAT_API_AUDIT_ENABLED = 'false'
+if (-not $disableAudit -and $settings.AuditJdbcUrl -and $settings.AuditCredential -and
+    $settings.AuditCredential.UserName -eq 'SPAT_API_AUDIT_WRITER') {
+    $env:SPAT_API_AUDIT_ENABLED = 'true'
+    $env:SPAT_API_AUDIT_JDBC_URL = $settings.AuditJdbcUrl
+    $env:SPAT_API_AUDIT_DB_USER = $settings.AuditCredential.UserName
+    $env:SPAT_API_AUDIT_DB_PASSWORD = $settings.AuditCredential.GetNetworkCredential().Password
+}
 
 try {
     if ($Background) {
@@ -81,4 +90,8 @@ finally {
     Remove-Item Env:SPAT_RO_JDBC_URL -ErrorAction SilentlyContinue
     Remove-Item Env:SPAT_RO_DB_USER -ErrorAction SilentlyContinue
     Remove-Item Env:SPAT_RO_DB_ENABLED -ErrorAction SilentlyContinue
+    Remove-Item Env:SPAT_API_AUDIT_ENABLED -ErrorAction SilentlyContinue
+    Remove-Item Env:SPAT_API_AUDIT_JDBC_URL -ErrorAction SilentlyContinue
+    Remove-Item Env:SPAT_API_AUDIT_DB_USER -ErrorAction SilentlyContinue
+    Remove-Item Env:SPAT_API_AUDIT_DB_PASSWORD -ErrorAction SilentlyContinue
 }

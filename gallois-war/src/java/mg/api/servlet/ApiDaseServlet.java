@@ -61,7 +61,7 @@ public class ApiDaseServlet extends HttpServlet {
         } catch (ApiException e) {
             sendError(response, e.status, e.getMessage());
         } catch (Exception e) {
-            log("Erreur API lors de la lecture d’une DASE", e);
+            safeLog("Erreur API lors de la lecture d’une DASE", e);
             sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "La lecture de la DASE a échoué");
         } finally {
@@ -82,11 +82,13 @@ public class ApiDaseServlet extends HttpServlet {
         try {
             body = mapper.readValue(request.getInputStream(), DaseCreateRequest.class);
         } catch (JsonProcessingException e) {
+            safeLog("Requête DASE rejetée : JSON invalide ou champ inconnu");
             sendError(response, HttpServletResponse.SC_BAD_REQUEST, "JSON invalide ou champ inconnu");
             return;
         }
         String validationError = validate(body);
         if (validationError != null) {
+            safeLog("Requête DASE rejetée : " + validationError);
             sendError(response, HttpServletResponse.SC_BAD_REQUEST, validationError);
             return;
         }
@@ -123,18 +125,28 @@ public class ApiDaseServlet extends HttpServlet {
                 line.createObject(actorId, connection);
             }
 
+            // Ne confirme pas une création si les règles SPAT ont écarté une ligne.
+            DemandeAchatFille[] persistedLines = findLines(dase.getId(), connection);
+            int persistedCount = persistedLines == null ? 0 : persistedLines.length;
+            if (persistedCount != body.getLignes().size()) {
+                throw new Exception("Nombre de lignes DASE persistées différent du nombre demandé"
+                        + " (attendu=" + body.getLignes().size() + ", obtenu=" + persistedCount + ")");
+            }
+
             connection.commit();
             response.setStatus(HttpServletResponse.SC_CREATED);
             writeDase(response, findDase(dase.getId(), connection), findLines(dase.getId(), connection));
         } catch (ApiException e) {
             rollback(connection);
+            safeLog("Requête DASE refusée : " + e.getMessage());
             sendError(response, e.status, e.getMessage());
         } catch (IllegalArgumentException e) {
             rollback(connection);
+            safeLog("Requête DASE rejetée : date ou valeur invalide", e);
             sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Date ou valeur invalide");
         } catch (Exception e) {
             rollback(connection);
-            log("Erreur API lors de la création d’une DASE", e);
+            safeLog("Erreur API lors de la création d’une DASE", e);
             sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "La création de la DASE a échoué; la transaction a été annulée");
         } finally {
@@ -159,6 +171,7 @@ public class ApiDaseServlet extends HttpServlet {
                 : "";
         if (!MessageDigest.isEqual(token.getBytes(StandardCharsets.UTF_8),
                 supplied.getBytes(StandardCharsets.UTF_8))) {
+            safeLog("Requête API DASE rejetée : authentification invalide");
             sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "Authentification requise");
             return null;
         }
@@ -327,6 +340,20 @@ public class ApiDaseServlet extends HttpServlet {
                 connection.close();
             } catch (Exception ignored) {
             }
+        }
+    }
+
+    private void safeLog(String message) {
+        try {
+            log(message);
+        } catch (Throwable ignored) {
+        }
+    }
+
+    private void safeLog(String message, Throwable error) {
+        try {
+            log(message, error);
+        } catch (Throwable ignored) {
         }
     }
 
